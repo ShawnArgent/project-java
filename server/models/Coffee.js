@@ -29,11 +29,24 @@ const coffeeSchema = new Schema({
     required: true,
     min: 0.99,
   },
-
+  tatsingProfile: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   image: {
     type: String,
   },
-  location: [Location.schema],
+  location: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  locationHistory: {
+    type: String,
+    required: true,
+    trim: true,
+  },
 });
 
 const Coffee = mongoose.model("Coffee", coffeeSchema);
