@@ -1,5 +1,5 @@
 {
-  "name": "mern-gql-starter",
+  "name": "project-java",
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
@@ -13,12 +13,19 @@
     "react": "cd client && npm start",
     "server": "cd server && npm run watch",
     "install": "cd server && npm i && cd ../client && npm i",
-    "build": "cd client && npm run build"
+    "build": "cd client && npm run build",
+    "seed": "cd server && npm run seed"
+
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^6.4.0"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "express-graphql": "^0.12.0"
   }
 }
