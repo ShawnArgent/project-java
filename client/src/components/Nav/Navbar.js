@@ -26,7 +26,7 @@ export default function Navbar() {
           <NavLink to="/signup" className="navbar-link">
             Signup
           </NavLink>
-          <NavLink to="/orderHistory" className="navbar-link">
+          <NavLink to="/carthistory" className="navbar-link">
             Cart
           </NavLink>
         </>
