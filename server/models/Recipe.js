@@ -22,7 +22,6 @@ const recipeSchema = new Schema({
   image: {
     type: String,
   },
-  coffees: [Coffee.schema],
 });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);
