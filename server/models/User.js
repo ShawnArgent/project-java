@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
 const Order = require("./Order");
-const Subscription = require("./Subscription");
 
 const userSchema = new Schema({
   firstName: {
@@ -27,7 +26,7 @@ const userSchema = new Schema({
     minlength: 5,
   },
   orders: [Order.schema],
-  subscriptions: [Subscription.schema],
+  
 });
 
 userSchema.pre("save", async function (next) {
