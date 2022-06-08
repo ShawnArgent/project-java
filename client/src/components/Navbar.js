@@ -1,13 +1,13 @@
-import { NavLink } from "react-router-dom";
-import { useAuth } from "../util/auth";
-import "./Navbar.css";
+import { NavLink } from 'react-router-dom';
+import { useAuth } from '../util/auth';
+import './Navbar.css';
 
 export default function Navbar() {
   const { isLoggedIn, logout } = useAuth();
   return (
     <nav className="navbar">
       <NavLink to="/" className="navbar-link">
-        Home
+        Black Coffee
       </NavLink>
       {isLoggedIn ? (
         <>
