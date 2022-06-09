@@ -5,9 +5,10 @@ const {
 const { User, Coffee, Order } = require("../models");
 const { signToken } = require("../util/auth");
 const { dateScalar } = require("./customScalars");
+const { SERVER_API_KEY } = process.env;
 
 // remove sk test code and make secret
-const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
+const stripe = require("stripe")(SERVER_API_KEY);
 
 const resolvers = {
   Date: dateScalar,
