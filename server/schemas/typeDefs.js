@@ -4,14 +4,43 @@ const typeDefs = gql`
   "Unix time stamp in milliseconds."
   scalar Date
 
-  type Query {
-    "Find the logged in user."
-    me: User
+  type User {
+    _id: ID!
+    firstName: String
+    lastName: String
+    email: String
+    orders: [Order]
   }
 
-  type Mutation {
-    createUser(email: String!, password: String!, username: String!): Auth
-    login(email: String!, password: String!): Auth
+  type Coffee {
+    _id: ID!
+    name: String
+    roast: String
+    type: String
+    quantity: Int
+    price: Float
+    tastingProfile: String
+    image: String
+    location: String
+    locationHistory: String
+  }
+
+  type Order {
+    _id: ID!
+    purchaseDate: String
+    coffees: [Coffee]
+  }
+
+  type Recipe {
+    _id: ID!
+    title: String
+    description: String
+    ingredients: String
+    image: String
+  }
+
+  type Checkout {
+    session: ID
   }
 
   type Auth {
@@ -19,11 +48,23 @@ const typeDefs = gql`
     user: User!
   }
 
-  type User {
-    _id: ID!
-    username: String!
-    email: String!
-    lastLogin: Date!
+  type Query {
+    "Find the logged in user."
+    me: User
+    coffees: [Coffee]
+    coffee(_id: ID!): Coffee
+    checkout(coffees: [ID]!): Checkout
+  }
+
+  type Mutation {
+    createUser(
+      firstName: String!
+      lastName: String!
+      email: String!
+      password: String!
+    ): Auth
+    newOrder(coffees: [ID]!): Order
+    login(email: String!, password: String!): Auth
   }
 `;
 
