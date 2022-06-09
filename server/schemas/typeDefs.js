@@ -7,6 +7,9 @@ const typeDefs = gql`
   type Query {
     "Find the logged in user."
     me: User
+    coffees: [Coffee]
+    coffee(_id: ID!): Coffee
+    checkout(coffees: [ID]!): Checkout
   }
 
   type Mutation {
