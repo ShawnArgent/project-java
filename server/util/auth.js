@@ -11,7 +11,8 @@ const signToken = (user) => {
   const data = {
     _id: user._id,
     email: user.email,
-    username: user.username,
+    firstName: user.firstName,
+    lastName: user.lastName,
   };
   return jwt.sign({ data }, SECRET, {
     expiresIn: TOKEN_EXP,
