@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../util/auth';
 import './Navbar.css';
 import { AiFillShopping } from 'react-icons/ai';
-import logo from './bnc2.jpg';
+import logo from './black_logo.jpg';
 
 export default function Navbar() {
   const { isLoggedIn, logout } = useAuth();
