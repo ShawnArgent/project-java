@@ -7,16 +7,16 @@ import { useAuth } from '../util/auth';
 // sign informs on web.dev https://web.dev/sign-in-form-best-practices/
 
 // TODO: customize styles or import styles with favorite css approach
-const styles = {
-  formControl: {
-    display: 'flex',
-    padding: '0.25em',
-  },
-  label: {
-    flex: '0 1 6em',
-    paddingRight: '0.25em',
-  },
-};
+// const styles = {
+//   formControl: {
+//     display: 'flex',
+//     padding: '0.25em',
+//   },
+//   label: {
+//     flex: '0 1 6em',
+//     paddingRight: '0.25em',
+//   },
+// };
 
 const initialFormState = {
   email: '',
@@ -54,27 +54,27 @@ export default function Login() {
   return (
     <div>
       <hr />
-      <form onSubmit={handleSubmit}>
-        <div style={styles.formControl}>
-          <label htmlFor="email" style={styles.label}>
-            Email
-          </label>
-          <input disabled={loading} id="email" type="email" name="email" placeholder="Enter email" value={formState.email.value} onChange={handleInputChange} />
+      <form class="box  login-form" onSubmit={handleSubmit} >
+        <div class="field">
+          <label class="label" htmlFor="email">Email</label>
+            <div class="control">
+              <input class="input" disabled={loading} id="email" type="email" name="email" placeholder="Enter email" value={formState.email.value} onChange={handleInputChange} />
+            </div>
+          </div>
+        <div class="field" >
+          <label class="label" htmlFor="new-password" >Password</label>
+          <div class="control">
+          <input class="input" disabled={loading} id="new-password" type="password" name="password" placeholder="Enter password" value={formState.password.value} onChange={handleInputChange} />
+          </div>
         </div>
-        <div style={styles.formControl}>
-          <label htmlFor="new-password" style={styles.label}>
-            Password
-          </label>
-          <input disabled={loading} id="new-password" type="password" name="password" placeholder="Enter password" value={formState.password.value} onChange={handleInputChange} />
-        </div>
-        <div style={styles.formControl}>
-          <button disabled={loading} type="submit">
+        <div>
+          <button  class="button is-info " disabled={loading} type="submit">
             {loading ? 'Loading...' : 'Submit'}
           </button>
         </div>
       </form>
       <div>
-        <p>
+        <p class="box signup-p">
           Don't have an account yet? <a href=" /signup"> Sign Up Here</a>
         </p>
       </div>

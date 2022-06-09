@@ -7,16 +7,7 @@ import { useAuth } from "../util/auth";
 // sign informs on web.dev https://web.dev/sign-in-form-best-practices/
 
 // TODO: customize styles or import styles with favorite css approach
-const styles = {
-  formControl: {
-    display: "flex",
-    padding: "0.25em",
-  },
-  label: {
-    flex: "0 1 6em",
-    paddingRight: "0.25em",
-  },
-};
+
 
 const initialFormState = {
   firstname: "",
@@ -52,16 +43,15 @@ export default function SignUp() {
   }
   return (
     <div>
-      <h1>Sign Up</h1>
       <hr />
-      <form onSubmit={handleSubmit}>
-        <div style={styles.formControl}>
-          <label htmlFor="firstname" style={styles.label}>
-            Firstname
-          </label>
+      <form class="box signup-form" onSubmit={handleSubmit}>
+        <div class="field">
+          <label class="label" htmlFor="firstname" >Firstname</label>
+          <div class="control">
           <input
             autoFocus
             disabled={loading}
+            class="input"
             id="firstname"
             type="text"
             placeholder="Enter firstname"
@@ -69,15 +59,16 @@ export default function SignUp() {
             value={formState.firstname.value}
             onChange={handleInputChange}
           />
+          </div>
         </div>
 
-        <div style={styles.formControl}>
-          <label htmlFor="lastname" style={styles.label}>
-            Lastname
-          </label>
+        <div class="field">
+          <label class="label" htmlFor="lastname">Lastname</label>
+          <div class="control">
           <input
             autoFocus
             disabled={loading}
+            class="input"
             id="lastname"
             type="text"
             placeholder="Enter lastname"
@@ -85,14 +76,15 @@ export default function SignUp() {
             value={formState.lastname.value}
             onChange={handleInputChange}
           />
+          </div>
         </div>
 
-        <div style={styles.formControl}>
-          <label htmlFor="email" style={styles.label}>
-            Email
-          </label>
+        <div class="field">
+          <label class="label" htmlFor="email" >Email</label>
+          <div class="control">
           <input
             disabled={loading}
+            class="input"
             id="email"
             type="email"
             name="email"
@@ -100,13 +92,15 @@ export default function SignUp() {
             value={formState.email.value}
             onChange={handleInputChange}
           />
+          </div>
         </div>
-        <div style={styles.formControl}>
-          <label htmlFor="new-password" style={styles.label}>
-            Password
-          </label>
+
+        <div class="field">
+          <label class="label" htmlFor="new-password" >Password</label>
+          <div class="control">
           <input
             disabled={loading}
+            class="input"
             id="new-password"
             type="password"
             name="password"
@@ -114,14 +108,16 @@ export default function SignUp() {
             value={formState.password.value}
             onChange={handleInputChange}
           />
+          </div>
         </div>
-        <div style={styles.formControl}>
-          <button disabled={loading} type="submit">
+
+        <div >
+          <button class="button is-info" disabled={loading} type="submit">
             {loading ? "Loading..." : "Submit"}
           </button>
         </div>
       </form>
-      <div>
+      <div class=" box signup-p">
         <p>Already have an account? <a href=" /login">Login Here</a></p>
       </div>
     </div>
