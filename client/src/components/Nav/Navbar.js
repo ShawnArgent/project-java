@@ -1,3 +1,4 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../util/auth';
 import './Navbar.css';
@@ -35,14 +36,8 @@ export default function Navbar() {
           <NavLink to="/login" className="nav-link">
             Login
           </NavLink>
-          <button type="button" className="cart-icon">
+          <NavLink to="/CartHistory" className="cart-icon">
             <AiFillShopping />
-          </button>
-          <NavLink to="/signup" className="navbar-link">
-            Signup
-          </NavLink>
-          <NavLink to="/carthistory" className="navbar-link">
-            Cart
           </NavLink>
         </>
       )}
