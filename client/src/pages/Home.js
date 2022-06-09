@@ -1,6 +1,6 @@
 import { useAuth } from '../util/auth';
 import './Home.css';
-import coverImage from '../assets/coffee.png';
+
 
 export default function Home() {
   const { isLoggedIn, user } = useAuth();
@@ -12,13 +12,6 @@ export default function Home() {
       <div>
         <p> THE BEST COFFEE FOR THE BEST YOU</p>
       </div>
-      <img
-        src={coverImage}
-        alt="coffee background"
-        style={{
-          resizeMode: 'cover',
-        }}
-      />
     </div>
   );
 }
