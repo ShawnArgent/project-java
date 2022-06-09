@@ -90,6 +90,9 @@ export default function Login() {
           </button>
         </div>
       </form>
+      <div>
+      <p>Don't have an account yet? <a href=" /signup"> Sign Up Here</a></p>
+      </div>
     </div>
   );
 }
