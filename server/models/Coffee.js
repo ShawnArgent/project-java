@@ -29,7 +29,7 @@ const coffeeSchema = new Schema({
     required: true,
     min: 0.99,
   },
-  tatsingProfile: {
+  tastingProfile: {
     type: String,
     required: true,
     trim: true,
