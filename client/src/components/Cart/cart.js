@@ -16,8 +16,6 @@ const Cart = () => {
   const [state, dispatch] = useStoreContext();
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 
-  // We check to see if there is a data object that exists, if so this means that a checkout session was returned from the backend
-  // Then we should redirect to the checkout with a reference to our session id
   useEffect(() => {
     if (data) {
       stripePromise.then((res) => {
@@ -26,12 +24,15 @@ const Cart = () => {
     }
   }, [data]);
 
-  // If the cart's length or if the dispatch function is updated, check to see if the cart is empty.
-  // If so, invoke the getCart method and populate the cart with the existing from the session
   useEffect(() => {
     async function getCart() {
+<<<<<<< HEAD:client/src/components/Cart/cart.js
       const cart = await idbPromise('cart', 'get');
       dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
+=======
+      const cart = await idbPromise("cart", "get");
+      dispatch({ type: ADD_MULTIPLE_TO_CART, coffees: [...cart] });
+>>>>>>> 9ab62082448b203e2bee9b4c15b6d0774d4853c5:client/src/components/Cart/index.js
     }
 
     if (!state.cart.length) {
@@ -51,19 +52,17 @@ const Cart = () => {
     return sum.toFixed(2);
   }
 
-  // When the submit checkout method is invoked, loop through each item in the cart
-  // Add each item id to the productIds array and then invoke the getCheckout query passing an object containing the id for all our products
   function submitCheckout() {
-    const productIds = [];
+    const coffeeIds = [];
 
     state.cart.forEach((item) => {
       for (let i = 0; i < item.purchaseQuantity; i++) {
-        productIds.push(item._id);
+        coffeeIds.push(item._id);
       }
     });
 
     getCheckout({
-      variables: { products: productIds },
+      variables: { coffees: coffeeIds },
     });
   }
 
@@ -92,8 +91,16 @@ const Cart = () => {
           <div className="flex-row space-between">
             <strong>Total: ${calculateTotal()}</strong>
 
+<<<<<<< HEAD:client/src/components/Cart/cart.js
             {/* Check to see if the user is logged in. If so render a button to check out */}
             {useAuth.loggedIn() ? <button onClick={submitCheckout}>Checkout</button> : <span>(log in to check out)</span>}
+=======
+            {Auth.loggedIn() ? (
+              <button onClick={submitCheckout}>Checkout</button>
+            ) : (
+              <span>(log in to check out)</span>
+            )}
+>>>>>>> 9ab62082448b203e2bee9b4c15b6d0774d4853c5:client/src/components/Cart/index.js
           </div>
         </div>
       ) : (

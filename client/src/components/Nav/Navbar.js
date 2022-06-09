@@ -38,6 +38,12 @@ export default function Navbar() {
           <button type="button" className="cart-icon">
             <AiFillShopping />
           </button>
+          <NavLink to="/signup" className="navbar-link">
+            Signup
+          </NavLink>
+          <NavLink to="/carthistory" className="navbar-link">
+            Cart
+          </NavLink>
         </>
       )}
     </nav>
