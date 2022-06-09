@@ -1,11 +1,7 @@
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
-const colors = require('colors');
-const cors = require('cors');
 const express = require('express');
-const { graphqlHTTP } = require('express-graphql');
 const { ApolloServer } = require('apollo-server-express');
-
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 const { authMiddleware } = require('./util/auth');

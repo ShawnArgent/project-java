@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const ME = gql`
   query me {
@@ -11,8 +11,8 @@ export const ME = gql`
   }
 `;
 export const QUERY_COFFEE = gql`
-  query getCoffees() {
-    coffees() {
+  query getCoffees {
+    coffees {
       _id
       name
       roast
@@ -23,7 +23,6 @@ export const QUERY_COFFEE = gql`
       image
       location
       locationHistory
-      }
     }
   }
 `;
@@ -56,7 +55,7 @@ export const QUERY_USER = gql`
       orders {
         _id
         purchaseDate
-        products {
+        coffees {
           _id
           name
           description
