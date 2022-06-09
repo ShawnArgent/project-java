@@ -1,5 +1,5 @@
-import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../util/auth";
+import { Navigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../util/auth';
 
 export default function RequireAuth({ children }) {
   const { isLoggedIn } = useAuth();

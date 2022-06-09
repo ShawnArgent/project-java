@@ -1,0 +1,59 @@
+
+  .navbar-container {
+    position: relative;
+    height: 108px;
+    background-color: black;
+  }
+  .home-link {
+    display: in-line;
+    margin-left: 5em;
+    text-decoration: none;
+    background: none;
+  }
+
+  .cart-icon{
+    font-size: 25px;
+    float: right;
+    color: red;
+    cursor: pointer;
+    position: relative;
+    transition: transform .4s ease;
+    border: none;
+    background-color: transparent;
+  }
+  .cart-icon:hover{
+    transform: scale(1.1,1.1);
+  }
+  .nav-link {
+    float: right;
+    display: flex;
+    width: 4em;
+    padding: .5em;
+    margin-right: 1em;
+    text-align: center;
+    text-decoration: none;
+    bottom: 18px;
+  
+    /* style button as link */
+    background: none;
+    cursor: pointer;
+    font-size: inherit;
+    color: white;
+  }
+  
+  .nav-link:hover {
+    background-color: red;
+  }
+  
+  .nav-link:active {
+    background-color: none;
+    color: red;
+  }
+  
+  .active,
+  .active:hover,
+  .active:active {
+    color: black;
+    background-color: none;
+    cursor: default;
+  }

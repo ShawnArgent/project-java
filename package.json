@@ -15,7 +15,6 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
     "seed": "cd server && npm run seed"
-
   },
   "keywords": [],
   "author": "",
@@ -24,8 +23,10 @@
     "concurrently": "^6.4.0"
   },
   "dependencies": {
+    "bootstrap": "^5.1.3",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
-    "express-graphql": "^0.12.0"
+    "express-graphql": "^0.12.0",
+    "react-bootstrap": "^2.4.0"
   }
 }
