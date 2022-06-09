@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
-const Location = require("./Location");
 
 const coffeeSchema = new Schema({
   name: {
