@@ -8,9 +8,11 @@ import useAuth from "../../utils/auth";
 import { useStoreContext } from "../../utils/GlobalState";
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from "../../utils/actions";
 import "./cart.css";
+import { isRequiredArgument } from "graphql";
 
 // stripePromise returns a promise with the stripe object as soon as the Stripe package loads
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+const { CLIENT_API_KEY } = process.env;
+const stripePromise = loadStripe(CLIENT_API_KEY);
 
 const Cart = () => {
   const [state, dispatch] = useStoreContext();
