@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-import { useLazyQuery } from "@apollo/client";
-import { QUERY_CHECKOUT } from "../../util/queries";
-import { idbPromise } from "../../utils/helpers";
-import CartItem from "../CartItem";
-import Auth from "../../utils/auth";
-import { useStoreContext } from "../../utils/GlobalState";
-import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from "../../util/actions";
-import "./cart.css";
+import React, { useEffect } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { useLazyQuery } from '@apollo/client';
+import { QUERY_CHECKOUT } from '../../utils/queries';
+import { idbPromise } from '../../utils/helpers';
+import CartItem from '../CartItem';
+import useAuth from '../../utils/auth';
+import { useStoreContext } from '../../utils/GlobalState';
+import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../utils/actions';
+import './cart.css';
 
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+// stripePromise returns a promise with the stripe object as soon as the Stripe package loads
+const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 const Cart = () => {
   const [state, dispatch] = useStoreContext();
@@ -25,8 +26,13 @@ const Cart = () => {
 
   useEffect(() => {
     async function getCart() {
+<<<<<<< HEAD:client/src/components/Cart/cart.js
+      const cart = await idbPromise('cart', 'get');
+      dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
+=======
       const cart = await idbPromise("cart", "get");
       dispatch({ type: ADD_MULTIPLE_TO_CART, coffees: [...cart] });
+>>>>>>> 9ab62082448b203e2bee9b4c15b6d0774d4853c5:client/src/components/Cart/index.js
     }
 
     if (!state.cart.length) {
@@ -85,11 +91,16 @@ const Cart = () => {
           <div className="flex-row space-between">
             <strong>Total: ${calculateTotal()}</strong>
 
+<<<<<<< HEAD:client/src/components/Cart/cart.js
+            {/* Check to see if the user is logged in. If so render a button to check out */}
+            {useAuth.loggedIn() ? <button onClick={submitCheckout}>Checkout</button> : <span>(log in to check out)</span>}
+=======
             {Auth.loggedIn() ? (
               <button onClick={submitCheckout}>Checkout</button>
             ) : (
               <span>(log in to check out)</span>
             )}
+>>>>>>> 9ab62082448b203e2bee9b4c15b6d0774d4853c5:client/src/components/Cart/index.js
           </div>
         </div>
       ) : (

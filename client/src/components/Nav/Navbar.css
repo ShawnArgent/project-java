@@ -1,42 +1,59 @@
-.navbar {
-  display: flex;
-}
 
-.navbar-link {
-  --border: 1px solid #444;
+  .navbar-container {
+    position: relative;
+    height: 108px;
+    background-color: black;
+  }
+  .home-link {
+    display: in-line;
+    margin-left: 5em;
+    text-decoration: none;
+    background: none;
+  }
 
-  display: block;
-  width: 4em;
-  padding: 0.25em;
-  text-align: center;
-  text-decoration: none;
-  border: var(--border);
-  border-left: none;
-
-  /* style button as link */
-  background: none;
-  cursor: pointer;
-  font-size: inherit;
-  color: inherit;
-}
-
-.navbar-link:first-child {
-  border-left: var(--border);
-}
-
-.navbar-link:hover {
-  background-color: #ddd;
-}
-
-.navbar-link:active {
-  background-color: #666;
-  color: white;
-}
-
-.active,
-.active:hover,
-.active:active {
-  color: white;
-  background-color: #444;
-  cursor: default;
-}
+  .cart-icon{
+    font-size: 25px;
+    float: right;
+    color: red;
+    cursor: pointer;
+    position: relative;
+    transition: transform .4s ease;
+    border: none;
+    background-color: transparent;
+  }
+  .cart-icon:hover{
+    transform: scale(1.1,1.1);
+  }
+  .nav-link {
+    float: right;
+    display: flex;
+    width: 4em;
+    padding: .5em;
+    margin-right: 1em;
+    text-align: center;
+    text-decoration: none;
+    bottom: 18px;
+  
+    /* style button as link */
+    background: none;
+    cursor: pointer;
+    font-size: inherit;
+    color: white;
+  }
+  
+  .nav-link:hover {
+    background-color: red;
+  }
+  
+  .nav-link:active {
+    background-color: none;
+    color: red;
+  }
+  
+  .active,
+  .active:hover,
+  .active:active {
+    color: black;
+    background-color: none;
+    cursor: default;
+  }
