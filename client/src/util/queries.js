@@ -10,41 +10,40 @@ export const ME = gql`
     }
   }
 `;
-export const QUERY_PRODUCTS = gql`
-  query getProducts($category: ID) {
-    products(category: $category) {
+export const QUERY_COFFEE = gql`
+  query getCoffees() {
+    coffees() {
       _id
       name
-      description
-      price
+      roast
+      type
       quantity
+      price
+      tastingProfile
       image
-      category {
-        _id
+      location
+      locationHistory
       }
     }
   }
 `;
 
 export const QUERY_CHECKOUT = gql`
-  query getCheckout($products: [ID]!) {
-    checkout(products: $products) {
+  query getCheckout($coffee: [ID]!) {
+    checkout(coffees: $coffee) {
       session
     }
   }
 `;
 
-export const QUERY_ALL_PRODUCTS = gql`
+export const QUERY_ALL_COFFEE = gql`
   {
-    products {
+    coffee {
       _id
       name
       description
       price
       quantity
-      category {
-        name
-      }
     }
   }
 `;

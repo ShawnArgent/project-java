@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import { useQuery } from "@apollo/client";
-import { QUERY_USER } from "../utils/queries";
+import { QUERY_USER } from "../util/queries";
 
 function CartHistory() {
   const { data } = useQuery(QUERY_USER);
@@ -22,15 +22,15 @@ function CartHistory() {
             <h2>
               Order History for {user.firstName} {user.lastName}
             </h2>
-            {user.orders.map((order) => (
+            {user.order.map((order) => (
               <div key={order._id} className="my-2">
                 <h3>
                   {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
                 </h3>
                 <div className="flex-row">
-                  {order.products.map(({ _id, image, name, price }, index) => (
+                  {order.coffee.map(({ _id, image, name, price }, index) => (
                     <div key={index} className="card px-1 py-1">
-                      <NavLink to={`/products/${_id}`}>
+                      <NavLink to={`/coffee/${_id}`}>
                         <img alt={name} src={`/images/${image}`} />
                         <p>{name}</p>
                       </NavLink>

@@ -2,7 +2,7 @@ import { ApolloProvider } from "@apollo/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Nav/Navbar";
 import RequireAuth from "./components/RequireAuth";
-import CartHistory from "./pages/cartHistory";
+import CartHistory from "./pages/CartHistory";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ProtectedPageExample from "./pages/ProtectedPageExample";

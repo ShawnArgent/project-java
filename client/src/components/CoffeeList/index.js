@@ -1,55 +1,55 @@
 import React, { useEffect } from "react";
-import ProductItem from "../ProductItem";
+import CoffeeItem from "../CoffeeItem";
 import { useStoreContext } from "../../utils/GlobalState";
-import { UPDATE_PRODUCTS } from "../../utils/actions";
 import { useQuery } from "@apollo/client";
-import { QUERY_PRODUCTS } from "../../utils/queries";
+import { QUERY_COFFEE } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif";
+import { UPDATE_COFFEE } from "../../util/actions";
 
-function ProductList() {
+function CoffeeList() {
   const [state, dispatch] = useStoreContext();
 
   const { currentCategory } = state;
 
-  const { loading, data } = useQuery(QUERY_PRODUCTS);
+  const { loading, data } = useQuery(QUERY_COFFEE);
 
   useEffect(() => {
     if (data) {
       dispatch({
-        type: UPDATE_PRODUCTS,
-        products: data.products,
+        type: UPDATE_COFFEE,
+        coffee: data.coffee,
       });
-      data.products.forEach((product) => {
-        idbPromise("products", "put", product);
+      data.coffee.forEach((product) => {
+        idbPromise("coffee", "put", product);
       });
     } else if (!loading) {
-      idbPromise("products", "get").then((products) => {
+      idbPromise("coffee", "get").then((products) => {
         dispatch({
-          type: UPDATE_PRODUCTS,
-          products: products,
+          type: UPDATE_COFFEE,
+          coffee: products,
         });
       });
     }
   }, [data, loading, dispatch]);
 
-  function filterProducts() {
+  function filterCoffee() {
     if (!currentCategory) {
-      return state.products;
+      return state.coffee;
     }
 
-    return state.products.filter(
+    return state.coffee.filter(
       (product) => product.category._id === currentCategory
     );
   }
 
   return (
     <div className="my-2">
-      <h2>Our Products:</h2>
-      {state.products.length ? (
+      <h2>Our Coffees:</h2>
+      {state.coffee.length ? (
         <div className="flex-row">
-          {filterProducts().map((product) => (
-            <ProductItem
+          {filterCoffee().map((product) => (
+            <CoffeeItem
               key={product._id}
               _id={product._id}
               image={product.image}
@@ -67,4 +67,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default CoffeeList;
