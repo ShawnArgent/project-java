@@ -2,9 +2,12 @@ const {
   AuthenticationError,
   UserInputError,
 } = require("apollo-server-express");
-const { User } = require("../models");
+const { User, Coffee, Order } = require("../models");
 const { signToken } = require("../util/auth");
 const { dateScalar } = require("./customScalars");
+
+// remove sk test code and make secret
+const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 
 const resolvers = {
   Date: dateScalar,
@@ -16,6 +19,52 @@ const resolvers = {
         throw new AuthenticationError("Must be logged in.");
       }
       return User.findOne({ email: ctx.user.email });
+    },
+
+    coffees: async (parent, { category, name }) => {
+      return await Coffee.find();
+    },
+
+    coffee: async (parent, { _id }) => {
+      return await Coffee.findById(_id);
+    },
+
+    checkout: async (parent, args, context) => {
+      const url = new URL(context.headers.referer).origin;
+      const order = new Order({ coffees: args.coffees });
+      const line_items = [];
+
+      const { coffees } = await order.populate("coffees");
+
+      for (let i = 0; i < coffees.length; i++) {
+        const coffee = await stripe.coffees.create({
+          name: coffees[i].name,
+          roast: coffees[i].roast,
+          type: coffees[i].type,
+          images: [`${url}/images/${coffees[i].image}`],
+        });
+
+        const price = await stripe.prices.create({
+          coffee: coffee.id,
+          unit_amount: coffees[i].price * 100,
+          currency: "usd",
+        });
+
+        line_items.push({
+          price: price.id,
+          quantity: 1,
+        });
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items,
+        mode: "payment",
+        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${url}/`,
+      });
+
+      return { session: session.id };
     },
   },
   Mutation: {
@@ -32,6 +81,19 @@ const resolvers = {
         throw error;
       }
     },
+
+    newOrder: async (parent, { coffees }, context) => {
+      if (context.user) {
+        const order = await Order.create({ coffees });
+        await User.findByIdAndUpdate(context.user._id, {
+          $push: { orders: order },
+        });
+        return order;
+      }
+
+      throw new AuthenticationError("Not logged in");
+    },
+
     login: async (parent, args) => {
       const { email, password } = args;
       const user = await User.findOne({ email });
