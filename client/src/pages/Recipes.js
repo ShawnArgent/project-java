@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
-import { QUERY_RECIPES } from "../util/queries";
+
+import React, { useState, useEffect } from 'react';
+import { useQuery } from '@apollo/client';
+import { QUERY_RECIPES } from '../util/queries';
 
 function RecipeList() {
   const { loading, data } = useQuery(QUERY_RECIPES);

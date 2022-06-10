@@ -8,7 +8,9 @@ import Login from './pages/Login';
 import ProtectedPageExample from './pages/ProtectedPageExample';
 import SignUp from './pages/SignUp';
 import Recipe from './pages/Recipes';
+
 import Shop from "./pages/Shop";
+
 import { client } from './util/apolloClient';
 import { AuthProvider } from './util/auth';
 

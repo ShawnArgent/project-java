@@ -5,9 +5,8 @@ export default function Home() {
     <div className="columns is-centered">
       <div className="column">
         <div className="content has-background-black">
-          <h1 className="has-text-white has-text-centered">
-            Start your Black Coffee Journey.
-          </h1>
+
+          <h1 className="has-text-white has-text-centered">Start your Black Coffee Journey</h1>
 
           <img
             className="is-align-items-center"
