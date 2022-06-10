@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { pluralize } from "../../utils/helpers";
-import { useStoreContext } from "../../utils/GlobalState";
-import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../util/actions";
-import { idbPromise } from "../../utils/helpers";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { pluralize } from '../../util/helpers';
+import { useStoreContext } from '../../util/GlobalState';
+import { ADD_TO_CART, UPDATE_CART_QUANTITY } from '../../util/actions';
+import { idbPromise } from '../../util/helpers';
 
 function CoffeeItem(item) {
   const [state, dispatch] = useStoreContext();
@@ -20,7 +20,7 @@ function CoffeeItem(item) {
         _id: _id,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
       });
-      idbPromise("cart", "put", {
+      idbPromise('cart', 'put', {
         ...itemInCart,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
       });
@@ -29,7 +29,7 @@ function CoffeeItem(item) {
         type: ADD_TO_CART,
         product: { ...item, purchaseQuantity: 1 },
       });
-      idbPromise("cart", "put", { ...item, purchaseQuantity: 1 });
+      idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
     }
   };
 
@@ -41,7 +41,7 @@ function CoffeeItem(item) {
       </Link>
       <div>
         <div>
-          {quantity} {pluralize("item", quantity)} in stock
+          {quantity} {pluralize('item', quantity)} in stock
         </div>
         <span>${price}</span>
       </div>
