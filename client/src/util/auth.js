@@ -1,18 +1,18 @@
-import { useMutation } from "@apollo/client";
-import { CREATE_USER, LOGIN } from "../util/mutations";
-import { createContext, useContext, useEffect, useReducer } from "react";
-import decode from "jwt-decode";
+import { useMutation } from '@apollo/client';
+import { CREATE_USER, LOGIN } from '../util/mutations';
+import { createContext, useContext, useEffect, useReducer } from 'react';
+import decode from 'jwt-decode';
 
 export const token = {
   set(value) {
     if (value) {
-      localStorage.setItem("token", value);
+      localStorage.setItem('token', value);
       return;
     }
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
   },
   get() {
-    return localStorage.getItem("token") || "";
+    return localStorage.getItem('token') || '';
   },
 };
 
@@ -27,13 +27,13 @@ const parseToken = (token) => {
 };
 
 // actions
-const LOADING = "LOADING";
-const LOGOUT = "LOGOUT";
-const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-const ERROR = "ERROR";
+const LOADING = 'LOADING';
+const LOGOUT = 'LOGOUT';
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const ERROR = 'ERROR';
 
 const defaultState = {
-  authToken: "",
+  authToken: '',
   loading: false,
   error: null,
   isLoggedIn: false,
@@ -55,7 +55,7 @@ const initState = (initialState) => {
 const authReducer = (state, action) => {
   switch (action.type) {
     case LOGOUT:
-      return { ...defaultState, authToken: "" };
+      return { ...defaultState, authToken: '' };
 
     case LOADING:
       return { ...state, loading: true, error: null };
@@ -98,7 +98,7 @@ export const AuthProvider = ({ children }) => {
       // TODO: implement improved validation.
       if (!email || !password) {
         // TODO: implement improved error message.
-        throw new Error("Auth error. Invalid parameter received.");
+        throw new Error('Auth error. Invalid parameter received.');
       }
       const { data } = await loginUser({ variables: { email, password } });
       dispatch({ type: LOGIN_SUCCESS, payload: data.login.token });
@@ -114,7 +114,7 @@ export const AuthProvider = ({ children }) => {
       // TODO: implement improved validation.
       if (!email || !password || !username) {
         // TODO: implement improved error message
-        throw new Error("Auth error. Invalid parameter received.");
+        throw new Error('Auth error. Invalid parameter received.');
       }
 
       const { data } = await createUser({

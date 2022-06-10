@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import CoffeeItem from "../CoffeeItem";
-import { useStoreContext } from "../../utils/GlobalState";
-import { useQuery } from "@apollo/client";
-import { QUERY_COFFEE } from "../../utils/queries";
-import { idbPromise } from "../../utils/helpers";
-import spinner from "../../assets/spinner.gif";
-import { UPDATE_COFFEE } from "../../util/actions";
+import React, { useEffect } from 'react';
+import CoffeeItem from '../CoffeeItem';
+import { useStoreContext } from '../../util/GlobalState';
+import { useQuery } from '@apollo/client';
+import { QUERY_COFFEE } from '../../util/queries';
+import { idbPromise } from '../../util/helpers';
+import spinner from '../../assets/spinner.gif';
+import { UPDATE_COFFEE } from '../../util/actions';
 
 function CoffeeList() {
   const [state, dispatch] = useStoreContext();
@@ -21,10 +21,10 @@ function CoffeeList() {
         coffee: data.coffee,
       });
       data.coffee.forEach((product) => {
-        idbPromise("coffee", "put", product);
+        idbPromise('coffee', 'put', product);
       });
     } else if (!loading) {
-      idbPromise("coffee", "get").then((products) => {
+      idbPromise('coffee', 'get').then((products) => {
         dispatch({
           type: UPDATE_COFFEE,
           coffee: products,
@@ -38,9 +38,7 @@ function CoffeeList() {
       return state.coffee;
     }
 
-    return state.coffee.filter(
-      (product) => product.category._id === currentCategory
-    );
+    return state.coffee.filter((product) => product.category._id === currentCategory);
   }
 
   return (
@@ -49,14 +47,7 @@ function CoffeeList() {
       {state.coffee.length ? (
         <div className="flex-row">
           {filterCoffee().map((product) => (
-            <CoffeeItem
-              key={product._id}
-              _id={product._id}
-              image={product.image}
-              name={product.name}
-              price={product.price}
-              quantity={product.quantity}
-            />
+            <CoffeeItem key={product._id} _id={product._id} image={product.image} name={product.name} price={product.price} quantity={product.quantity} />
           ))}
         </div>
       ) : (
