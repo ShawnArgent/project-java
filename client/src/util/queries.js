@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const ME = gql`
   query me {
@@ -64,6 +64,17 @@ export const QUERY_USER = gql`
           image
         }
       }
+    }
+  }
+`;
+
+export const QUERY_RECIPES = gql`
+  {
+    recipes {
+      title
+      description
+      ingredients
+      image
     }
   }
 `;
