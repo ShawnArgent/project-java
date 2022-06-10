@@ -1,18 +1,16 @@
-
-import React, { useEffect } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
-import { useLazyQuery } from '@apollo/client';
-import { QUERY_CHECKOUT } from '../../util/queries';
-import { idbPromise } from '../../util/helpers';
-import CartItem from '../CartItem';
-import { useAuth } from '../../util/auth';
-import { useStoreContext } from '../../util/GlobalState';
-import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../util/actions';
-import './cart.css';
+import React, { useEffect } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import { useLazyQuery } from "@apollo/client";
+import { QUERY_CHECKOUT } from "../../util/queries";
+import { idbPromise } from "../../util/helpers";
+import CartItem from "../CartItem";
+import { useAuth } from "../../util/auth";
+import { useStoreContext } from "../../util/GlobalState";
+import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from "../../util/actions";
+import "./cart.css";
 
 // stripePromise returns a promise with the stripe object as soon as the Stripe package loads
-const { CLIENT_API_KEY } = process.env;
-const stripePromise = loadStripe(CLIENT_API_KEY);
+const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
 const Cart = () => {
   const [state, dispatch] = useStoreContext();
@@ -88,7 +86,11 @@ const Cart = () => {
           <div className="flex-row space-between">
             <strong>Total: ${calculateTotal()}</strong>
 
-            {useAuth.loggedIn() ? <button onClick={submitCheckout}>Checkout</button> : <span>(log in to check out)</span>}
+            {useAuth.loggedIn() ? (
+              <button onClick={submitCheckout}>Checkout</button>
+            ) : (
+              <span>(log in to check out)</span>
+            )}
           </div>
         </div>
       ) : (
