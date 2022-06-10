@@ -1,62 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { Schema } from '../../../server/models/Recipe';
+import React, { useState, useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import { QUERY_RECIPES } from "../util/queries";
 
-function Recipe() {
-  const [recipeData, setRecipeData] = useState(null);
-  const [ingredients, setIngredients] = useState(2000);
+function RecipeList() {
+  const { loading, data } = useQuery(QUERY_RECIPES);
 
-  function getRecipeData() {
-    fetch(`https://api.sampleapis.com/coffee/hot;${recipes}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setRecipeData(data);
-      })
-      .catch(() => {
-        console.log('error');
-      });
+  const recipes = data?.recipes || [];
 
-    return (
-      <div className="Recipe">
-        <section className="controls">
-          <input type="number" placeholder="Ingredients (e.g. 2000)" onChange={handleChange} />
-          <button onClick={getRecipeData}>Get Recipes</button>
-        </section>
-        {recipeData && <recipeList recipeData={recipeData} />}
-      </div>
-    );
-  }
-  function recipeList({ recipeData }) {
-    return (
-      <main>
-        <section className="recipes">
-          {recipeData.recipes.map((recipe) => {
-            return <recipe key={recipe.id} recipe={recipe} />;
-          })}
-        </section>
-      </main>
-    );
-  }
-  function recipe({ recipe }) {
-    const [imageUrl, setImageUrl] = useState('');
+  return (
+    <main>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        recipes.map((recipe) => (
+          <div className="card">
+            <div className="card-image">
+              <figure className="image is-4by3">
+                <img alt={recipe.title} src={recipe.image} />
+              </figure>
+            </div>
+            <div className="card-content">
+              <div className="media">
+                <div className="media-content">
+                  <p className="title is-4">{recipe.title}</p>
+                  <p className="subtitle is-6">{recipe.ingredients}</p>
+                </div>
+              </div>
 
-    useEffect(() => {
-      fetch(`https://api.sampleapis.com/coffee/hot;${recipe.id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setImageUrl(data.image);
-        })
-        .catch(() => {
-          console.log('error');
-        });
-    }, [recipe.id]);
-
-    return (
-      <article>
-        <h1>{recipe.title}</h1>
-        <img src={imageUrl} alt="recipe" />
-
-        <a href={recipe.sourceUrl}>Go to Recipe</a>
-      </article>
-    );
-  }
+              <div className="content">{recipe.description}</div>
+            </div>
+          </div>
+        ))
+      )}
+    </main>
+  );
 }
+
+export default RecipeList;
