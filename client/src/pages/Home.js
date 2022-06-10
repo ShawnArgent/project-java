@@ -1,8 +1,6 @@
 import React from "react";
 import { useAuth } from "../util/auth";
 import "./Home.css";
-import CoffeeList from "../components/CoffeeList";
-import Cart from "../components/Cart";
 
 export default function Home() {
   const { isLoggedIn, user } = useAuth();
@@ -17,13 +15,3 @@ export default function Home() {
     </div>
   );
 }
-
-const coffeeRender = () => {
-  return (
-    <div className="coffeeContainer">
-      <CoffeeList />
-      <Cart />
-    </div>
-  );
-};
-coffeeRender();

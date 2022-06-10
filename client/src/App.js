@@ -1,14 +1,15 @@
-import { ApolloProvider } from '@apollo/client';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Nav/Navbar';
-import RequireAuth from './components/RequireAuth';
+import { ApolloProvider } from "@apollo/client";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Nav/Navbar";
+import RequireAuth from "./components/RequireAuth";
 import CartHistory from "./pages/CartHistory";
-import Home from './pages/Home';
-import Login from './pages/Login';
-import ProtectedPageExample from './pages/ProtectedPageExample';
-import SignUp from './pages/SignUp';
-import { client } from './util/apolloClient';
-import { AuthProvider } from './util/auth';
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import ProtectedPageExample from "./pages/ProtectedPageExample";
+import SignUp from "./pages/SignUp";
+import Shop from "./pages/Shop";
+import { client } from "./util/apolloClient";
+import { AuthProvider } from "./util/auth";
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/carthistory" element={<CartHistory />} />
+            <Route path="/shop" element={<Shop />} />
+
             {/* Use <RequiredAuth> for pages that should only be accessible to a
             user that has logged in.*/}
 
