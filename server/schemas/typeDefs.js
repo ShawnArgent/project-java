@@ -35,7 +35,7 @@ const typeDefs = gql`
     _id: ID!
     title: String
     description: String
-    ingredients: String
+    ingredients: [String]
     image: String
   }
 
@@ -54,6 +54,7 @@ const typeDefs = gql`
     coffees: [Coffee]
     coffee(_id: ID!): Coffee
     checkout(coffees: [ID]!): Checkout
+    recipes: [Recipe]
   }
 
   type Mutation {

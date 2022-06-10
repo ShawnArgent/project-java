@@ -2,7 +2,7 @@ const {
   AuthenticationError,
   UserInputError,
 } = require("apollo-server-express");
-const { User, Coffee, Order } = require("../models");
+const { User, Coffee, Order, Recipe } = require("../models");
 const { signToken } = require("../util/auth");
 const { dateScalar } = require("./customScalars");
 const { SERVER_API_KEY } = process.env;
@@ -66,6 +66,10 @@ const resolvers = {
       });
 
       return { session: session.id };
+    },
+
+    recipes: async () => {
+      return await Recipe.find();
     },
   },
   Mutation: {
