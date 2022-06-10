@@ -1,8 +1,0 @@
-.welcome-container {
-  padding: 2em;
-  margin: 0 auto;
-  background-color: #fcfcfc;
-  text-align: center;
-  box-shadow: var(--shadow);
-  transition: transform 0.2s linear;
-}
