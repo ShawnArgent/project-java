@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
-const Coffee = require("./Coffee");
 
 const recipeSchema = new Schema({
   title: {
@@ -15,7 +14,7 @@ const recipeSchema = new Schema({
     trim: true,
   },
   ingredients: {
-    type: String,
+    type: Array,
     required: true,
     trim: true,
   },
