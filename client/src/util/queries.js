@@ -67,3 +67,14 @@ export const QUERY_USER = gql`
     }
   }
 `;
+
+export const QUERY_RECIPES = gql`
+  {
+    recipes {
+      title
+      description
+      ingredients
+      image
+    }
+  }
+`;

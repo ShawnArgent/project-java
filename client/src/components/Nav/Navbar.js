@@ -10,7 +10,7 @@ export default function Navbar() {
     <nav className="navbar is-black" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <NavLink className="navbar-item" to="/">
-          <img className="logo" src={logo} width={150} height={150} />
+          <img className="logo" src={logo} width={150} height={150} alt="black coffee roasters" />
         </NavLink>
       </div>
       <div id="navbarBasicExample" className="navbar-menu">
@@ -35,7 +35,7 @@ export default function Navbar() {
               <NavLink to="/Recipes" className="nav-item nav-link">
                 Recipes
               </NavLink>
-              <NavLink to="/Recipes" className="nav-item nav-link">
+              <NavLink to="/Shop" className="nav-item nav-link">
                 Shop
               </NavLink>
             </>
