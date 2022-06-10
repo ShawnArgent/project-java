@@ -64,6 +64,7 @@ const typeDefs = gql`
       password: String!
     ): Auth
     newOrder(coffees: [ID]!): Order
+    updateCoffee(_id: ID!, quantity: Int!): Coffee
     login(email: String!, password: String!): Auth
   }
 `;

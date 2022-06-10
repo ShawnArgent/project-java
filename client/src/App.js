@@ -21,6 +21,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/carthistory" element={<CartHistory />} />
+            <Route path="/recipe" element={<Recipe />} />
             {/* Use <RequiredAuth> for pages that should only be accessible to a
             user that has logged in.*/}
 

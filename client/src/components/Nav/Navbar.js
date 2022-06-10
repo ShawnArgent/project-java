@@ -45,35 +45,3 @@ export default function Navbar() {
     </nav>
   );
 }
-{
-  /* <nav className="navbar-container">
-      <NavLink to="/" className="home-link">
-        <img src={logo} alt="black coffee roasters" />
-      </NavLink>
-      {isLoggedIn ? (
-        <>
-          <NavLink to="/protected" className="nav-link">
-            User
-          </NavLink>
-          <button className="nav-link" onClick={logout}>
-            Logout
-          </button>
-        </>
-      ) : (
-        <>
-          <NavLink to="/CartHistory" className="cart-icon">
-            <AiFillShopping />
-          </NavLink>
-          <NavLink to="/Login" className="nav-link">
-            Login
-          </NavLink>
-          <NavLink to="/Recipes" className="nav-link">
-            Recipes
-          </NavLink>
-          <NavLink to="/Recipes" className="nav-link">
-            Shop
-          </NavLink>
-        </>
-      )}
-    </nav> */
-}
