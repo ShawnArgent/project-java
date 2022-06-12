@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import CoffeeItem from '../CoffeeItem';
-import '../models/Coffee.js';
 import { useStoreContext } from '../../util/GlobalState';
 import { useQuery } from '@apollo/client';
 import { QUERY_COFFEE } from '../../util/queries';
