@@ -44,23 +44,23 @@ function CoffeeItem(item) {
   };
 
   return (
-    <div class="card">
-      <div class="card-image">
-        <figure class="image is-4by3">
+    <div className="card">
+      <div className="card-image">
+        <figure className="image is-4by3">
           <Link to={`/coffee/${_id}`}>
             <img alt={name} src={`/images/${image}`} />
           </Link>
         </figure>
       </div>
-      <div class="card-content">
-        <div class="media">
-          <div class="media-content">
-            <p class="title is-4">{name}</p>
-            <p class="subtitle is-6">{roast}</p>
+      <div className="card-content">
+        <div className="media">
+          <div className="media-content">
+            <p className="title is-4">{name}</p>
+            <p className="subtitle is-6">{roast}</p>
           </div>
         </div>
 
-        <div class="content">
+        <div className="content">
           <ul>
             <li>{location}</li>
             <li>{tastingProfile}</li>
