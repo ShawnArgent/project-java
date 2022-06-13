@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "bulma": "^0.9.4",
+    "heroku": "^7.60.2",
     "react-icons": "^4.4.0",
     "serve": "^13.0.2"
   }
