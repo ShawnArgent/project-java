@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import coverImage from '../assets/coffee1.jpg';
 
 export default function Home() {
@@ -8,7 +7,6 @@ export default function Home() {
       <div className='column'>
         <div className='content has-background-black'>
           <h1 className='has-text-white has-text-centered'>Start your Black Coffee Journey</h1>
-
           <img
             className='is-align-items-center'
             src={coverImage}
