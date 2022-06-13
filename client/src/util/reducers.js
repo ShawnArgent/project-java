@@ -10,6 +10,7 @@ import {
 } from "./actions.js";
 
 export const reducer = (state, action) => {
+  console.log(action.type);
   switch (action.type) {
     case UPDATE_COFFEE:
       return {
