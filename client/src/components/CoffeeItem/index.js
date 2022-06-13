@@ -20,6 +20,7 @@ function CoffeeItem(item) {
         _id: _id,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
       });
+      console.log(itemInCart);
       idbPromise("cart", "put", {
         ...itemInCart,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
@@ -27,7 +28,7 @@ function CoffeeItem(item) {
     } else {
       dispatch({
         type: ADD_TO_CART,
-        product: { ...item, purchaseQuantity: 1 },
+        coffee: { ...item, purchaseQuantity: 1 },
       });
       idbPromise("cart", "put", { ...item, purchaseQuantity: 1 });
     }

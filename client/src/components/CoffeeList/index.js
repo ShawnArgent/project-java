@@ -5,22 +5,20 @@ import { idbPromise } from "../../util/helpers";
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../util/actions";
 import { useStoreContext } from "../../util/GlobalState";
 
-function CoffeeList(item) {
+function CoffeeList() {
   const { loading, data } = useQuery(QUERY_COFFEE);
   const [state, dispatch] = useStoreContext();
 
   const coffees = data?.coffees || [];
 
-  const { _id } = item;
-
   const { cart } = state;
 
-  const addToCart = () => {
-    const itemInCart = cart.find((cartItem) => cartItem._id === _id);
+  const addToCart = (item) => {
+    const itemInCart = cart.find((cartItem) => cartItem._id === item._id);
     if (itemInCart) {
       dispatch({
         type: UPDATE_CART_QUANTITY,
-        _id: _id,
+        _id: item._id,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
       });
       idbPromise("cart", "put", {
@@ -28,6 +26,7 @@ function CoffeeList(item) {
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
       });
     } else {
+      console.log(item);
       dispatch({
         type: ADD_TO_CART,
         product: { ...item, purchaseQuantity: 1 },
@@ -63,7 +62,7 @@ function CoffeeList(item) {
                   </p>
 
                   <p className="subtitle is-6">Type: {coffee.type}</p>
-                  <button onClick={addToCart} className="button">
+                  <button onClick={() => addToCart(coffee)} className="button">
                     Add to cart
                   </button>
                 </div>
