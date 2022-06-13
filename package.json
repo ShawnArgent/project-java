@@ -26,6 +26,7 @@
     "bulma": "^0.9.4",
     "heroku": "^7.60.2",
     "react-icons": "^4.4.0",
+    "react-simple-file-upload": "^1.0.1",
     "serve": "^13.0.2"
   }
 }
