@@ -42,7 +42,7 @@ function CoffeeList(item) {
         <div>Loading...</div>
       ) : (
         coffees.map((coffee) => (
-          <div className="card" key={coffee.name}>
+          <div className="card" key={coffee._id}>
             <div className="card-image">
               <figure className="image is-4by3">
                 <img alt={coffee.name} src={`/images/${coffee.image}`} />

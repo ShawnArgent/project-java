@@ -9,6 +9,7 @@ import ProtectedPageExample from "./pages/ProtectedPageExample";
 import SignUp from "./pages/SignUp";
 import Recipe from "./pages/Recipes";
 import Detail from "./pages/Detail";
+import { StoreProvider } from "./util/GlobalState";
 
 import Shop from "./pages/Shop";
 
@@ -20,28 +21,30 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <AuthProvider>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/carthistory" element={<CartHistory />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/recipes" element={<Recipe />} />
-            <Route path="/coffees/:id" element={<Detail />} />
+          <StoreProvider>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/carthistory" element={<CartHistory />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/recipes" element={<Recipe />} />
+              <Route path="/coffees/:id" element={<Detail />} />
 
-            {/* Use <RequiredAuth> for pages that should only be accessible to a
+              {/* Use <RequiredAuth> for pages that should only be accessible to a
             user that has logged in.*/}
 
-            <Route
-              path="/protected"
-              element={
-                <RequireAuth>
-                  <ProtectedPageExample />
-                </RequireAuth>
-              }
-            />
-          </Routes>
+              <Route
+                path="/protected"
+                element={
+                  <RequireAuth>
+                    <ProtectedPageExample />
+                  </RequireAuth>
+                }
+              />
+            </Routes>
+          </StoreProvider>
         </AuthProvider>
       </Router>
     </ApolloProvider>
