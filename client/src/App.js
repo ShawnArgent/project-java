@@ -31,7 +31,6 @@ function App() {
             <Route path='/recipes' element={<Recipe />} />
             {/* Use <RequiredAuth> for pages that should only be accessible to a
             user that has logged in.*/}
-
             <Route
               path='/protected'
               element={

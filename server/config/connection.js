@@ -1,16 +1,15 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
+mongoose;
 mongoose
-  .connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/DB_JAVA', {
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/DB_JAVA', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .catch((err) => {
     console.log(err);
-    console.log(
-      "⛔ There was an error connecting to MongoDB. See above for details."
-    );
-    console.log("Shutting down.");
+    console.log('⛔ There was an error connecting to MongoDB. See above for details.');
+    console.log('Shutting down.');
     process.exit(1);
   });
 
