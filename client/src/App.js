@@ -1,45 +1,50 @@
-import { ApolloProvider } from '@apollo/client';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Nav/Navbar';
-import RequireAuth from './components/RequireAuth';
-import CartHistory from './pages/CartHistory';
-import CoffeeItem from './pages/CoffeeItem';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import ProtectedPageExample from './pages/ProtectedPageExample';
-import SignUp from './pages/SignUp';
-import Recipe from './pages/Recipes';
+import { ApolloProvider } from "@apollo/client";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Nav/Navbar";
+import RequireAuth from "./components/RequireAuth";
+import CartHistory from "./pages/CartHistory";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import ProtectedPageExample from "./pages/ProtectedPageExample";
+import SignUp from "./pages/SignUp";
+import Recipe from "./pages/Recipes";
+import Detail from "./pages/Detail";
+import { StoreProvider } from "./util/GlobalState";
 
-import Shop from './pages/Shop';
+import Shop from "./pages/Shop";
 
-import { client } from './util/apolloClient';
-import { AuthProvider } from './util/auth';
+import { client } from "./util/apolloClient";
+import { AuthProvider } from "./util/auth";
 
 function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
         <AuthProvider>
-          <Navbar />
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<SignUp />} />
-            <Route path='/carthistory' element={<CartHistory />} />
-            <Route path='/shop' element={<Shop />} />
-            <Route path='/coffeeitem' element={<CoffeeItem />} />
-            <Route path='/recipes' element={<Recipe />} />
-            {/* Use <RequiredAuth> for pages that should only be accessible to a
+          <StoreProvider>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/carthistory" element={<CartHistory />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/recipes" element={<Recipe />} />
+              <Route path="/coffees/:id" element={<Detail />} />
+
+              {/* Use <RequiredAuth> for pages that should only be accessible to a
             user that has logged in.*/}
-            <Route
-              path='/protected'
-              element={
-                <RequireAuth>
-                  <ProtectedPageExample />
-                </RequireAuth>
-              }
-            />
-          </Routes>
+
+              <Route
+                path="/protected"
+                element={
+                  <RequireAuth>
+                    <ProtectedPageExample />
+                  </RequireAuth>
+                }
+              />
+            </Routes>
+          </StoreProvider>
         </AuthProvider>
       </Router>
     </ApolloProvider>

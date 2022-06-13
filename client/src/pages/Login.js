@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useLocation, Navigate } from 'react-router-dom';
-import { useAuth } from '../util/auth';
-import '../index.css';
+import { useEffect, useState } from "react";
+import { useLocation, Navigate } from "react-router-dom";
+import { useAuth } from "../util/auth";
+import "../index.css";
 const initialFormState = {
-  email: '',
-  password: '',
+  email: "",
+  password: "",
 };
 
 export default function Login() {
@@ -30,7 +30,7 @@ export default function Login() {
 
   if (isLoggedIn) {
     // navigate to page user was redirected from or the home page.
-    const from = location.state?.from?.pathname || '/';
+    const from = location.state?.from?.pathname || "/";
     return <Navigate to={from} replace />;
   }
 
@@ -42,21 +42,43 @@ export default function Login() {
           <div className="field">
             <label className="label">Email</label>
             <div className="control">
-              <input className="input" disabled={loading} id="email" type="email" name="email" placeholder="Enter email" value={formState.email.value} onChange={handleInputChange} />
+              <input
+                className="input"
+                disabled={loading}
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Enter email"
+                value={formState.email.value}
+                onChange={handleInputChange}
+              />
             </div>
           </div>
           <div className="field">
             <label className="label">Password</label>
-            <div class="control">
-              <input class="input" disabled={loading} id="new-password" type="password" name="password" placeholder="Enter password" value={formState.password.value} onChange={handleInputChange} />
+            <div className="control">
+              <input
+                className="input"
+                disabled={loading}
+                id="new-password"
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                value={formState.password.value}
+                onChange={handleInputChange}
+              />
             </div>
           </div>
           <div>
-            <button class="button is-info " disabled={loading} type="submit">
-              {loading ? 'Loading...' : 'Submit'}
+            <button
+              className="button is-info "
+              disabled={loading}
+              type="submit"
+            >
+              {loading ? "Loading..." : "Submit"}
             </button>
           </div>
-          <div class="content">
+          <div className="content">
             <p>
               Don't have an account? <a href=" /signup">Sign up Here</a>
             </p>
