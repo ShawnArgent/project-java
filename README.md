@@ -54,6 +54,6 @@ Speedy Beans is a coffee bean and coffee grounds subscription and delivery servi
 
 ## Deployed Application
 
-### [Heroku](page)
+[Click](https://vast-woodland-79628.herokuapp.com/) for deployed application
 
 © 2022 Coffee Coder: Mikayla Vosseller, Shawn Argent, Jesse Marino, Meng Xing
