@@ -41,24 +41,24 @@ function CoffeeList() {
         <div>Loading...</div>
       ) : (
         coffees.map((coffee) => (
-          <div className='card' key={coffee._id}>
-            <div className='card-image'>
-              <figure className='image is-4by3'>
-                <img alt={coffee.name} src={`/images/${coffee.image}`} />
-              </figure>
-            </div>
-            <div className='card-content'>
-              <div className='media'>
-                <div className='media-content'>
-                  <p className='title is-4'>{coffee.name}</p>
-                  <p className='subtitle is-6'>Roast: {coffee.roast}</p>
-                  <p className='subtitle is-6'>Price: {coffee.price}</p>
-                  <p className='subtitle is-6'>Tasting Profile: {coffee.tastingProfile}</p>
-                  <p className='subtitle is-6'>Location: {coffee.location}</p>
-                  <p className='subtitle is-6'>Location History: {coffee.locationHistory}</p>
+          <div className='column has-text-white' key={coffee._id}>
+            <div className='column is-2 is-offset-5' key={coffee.name}>
+              <div className='card-image is-centered'>
+                <figure className='image is-centered is-1by1 mb-4'>
+                  <img alt={coffee.name} src={`/images/${coffee.image}`} />
+                </figure>
+              </div>
+              <div className='card-content-centered'>
+                <div className='media-content-centered'>
+                  <p className='title is-4 has-text-centered has-text-white'>{coffee.name}</p>
+                  <p className='subtitle is-6 has-text-centered has-text-white'>Roast: {coffee.roast}</p>
+                  <p className='subtitle is-6 has-text-centered has-text-white'>Price: {coffee.price}</p>
+                  <p className='subtitle is-6 has-text-centered has-text-white'>Type: {coffee.type}</p>
+                  <p className='subtitle is-6 has-text-centered has-text-white'>Tasting Profile: {coffee.tastingProfile}</p>
+                  <p className='subtitle is-6 has-text-centered has-text-white'>Location: {coffee.location}</p>
+                  <p className='subtitle is-6 has-text-centered has-text-white'>Location History: {coffee.locationHistory}</p>
 
-                  <p className='subtitle is-6'>Type: {coffee.type}</p>
-                  <button onClick={() => addToCart(coffee)} className='button'>
+                  <button onClick={() => addToCart(coffee)} className='button is-white has-text-centered has-text-black'>
                     Add to cart
                   </button>
                 </div>
@@ -70,5 +70,4 @@ function CoffeeList() {
     </main>
   );
 }
-
 export default CoffeeList;
