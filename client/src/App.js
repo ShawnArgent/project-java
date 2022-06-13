@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import ProtectedPageExample from "./pages/ProtectedPageExample";
 import SignUp from "./pages/SignUp";
 import Recipe from "./pages/Recipes";
+import CoffeeDetail from "./pages/CoffeeDetail";
 
 import Shop from "./pages/Shop";
 
@@ -27,6 +28,8 @@ function App() {
             <Route path="/carthistory" element={<CartHistory />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/recipes" element={<Recipe />} />
+            <Route path="/coffee/:id" element={<CoffeeDetail />} />
+
             {/* Use <RequiredAuth> for pages that should only be accessible to a
             user that has logged in.*/}
 
