@@ -1,11 +1,11 @@
-const { gql } = require("apollo-server-express");
+const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   "Unix time stamp in milliseconds."
   scalar Date
 
   type User {
-    _id: ID!
+    _id: ID
     firstName: String
     lastName: String
     email: String
@@ -13,7 +13,7 @@ const typeDefs = gql`
   }
 
   type Coffee {
-    _id: ID!
+    _id: ID
     name: String
     roast: String
     type: String
@@ -58,12 +58,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(
-      firstName: String!
-      lastName: String!
-      email: String!
-      password: String!
-    ): Auth
+    createUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
     newOrder(coffees: [ID]!): Order
     updateCoffee(_id: ID!, quantity: Int!): Coffee
     login(email: String!, password: String!): Auth

@@ -1,14 +1,11 @@
-const {
-  AuthenticationError,
-  UserInputError,
-} = require("apollo-server-express");
-const { User, Coffee, Order, Recipe } = require("../models");
-const { signToken } = require("../util/auth");
-const { dateScalar } = require("./customScalars");
+const { AuthenticationError, UserInputError } = require('apollo-server-express');
+const { User, Coffee, Order, Recipe } = require('../models');
+const { signToken } = require('../util/auth');
+const { dateScalar } = require('./customScalars');
 const { SERVER_API_KEY } = process.env;
 
 // remove sk test code and make secret
-const stripe = require("stripe")(SERVER_API_KEY);
+const stripe = require('stripe')(SERVER_API_KEY);
 
 const resolvers = {
   Date: dateScalar,
@@ -17,7 +14,7 @@ const resolvers = {
       // if ctx.user is undefined, then no token or an invalid token was
       // provided by the client.
       if (!ctx.user) {
-        throw new AuthenticationError("Must be logged in.");
+        throw new AuthenticationError('Must be logged in.');
       }
       return User.findOne({ email: ctx.user.email });
     },
@@ -35,7 +32,7 @@ const resolvers = {
       const order = new Order({ coffees: args.coffees });
       const line_items = [];
 
-      const { coffees } = await order.populate("coffees");
+      const { coffees } = await order.populate('coffees');
 
       for (let i = 0; i < coffees.length; i++) {
         const coffee = await stripe.coffees.create({
@@ -48,7 +45,7 @@ const resolvers = {
         const price = await stripe.prices.create({
           coffee: coffee.id,
           unit_amount: coffees[i].price * 100,
-          currency: "usd",
+          currency: 'usd',
         });
 
         line_items.push({
@@ -58,9 +55,9 @@ const resolvers = {
       }
 
       const session = await stripe.checkout.sessions.create({
-        payment_method_types: ["card"],
+        payment_method_types: ['card'],
         line_items,
-        mode: "payment",
+        mode: 'payment',
         success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${url}/`,
       });
@@ -79,7 +76,7 @@ const resolvers = {
         const token = await signToken(user);
         return { user, token };
       } catch (error) {
-        if (error.name === "MongoError" && error.code === 11000) {
+        if (error.name === 'MongoError' && error.code === 11000) {
           const [[key, value]] = Object.entries(error.keyValue);
           throw new UserInputError(`${key} "${value}" already exists.`);
         }
@@ -96,18 +93,18 @@ const resolvers = {
         return order;
       }
 
-      throw new AuthenticationError("Not logged in");
+      throw new AuthenticationError('Not logged in');
     },
 
     login: async (parent, args) => {
       const { email, password } = args;
       const user = await User.findOne({ email });
       if (!user) {
-        throw new AuthenticationError("Invalid username or password");
+        throw new AuthenticationError('Invalid username or password');
       }
       const authentic = await user.isCorrectPassword(password);
       if (!authentic) {
-        throw new AuthenticationError("Invalid username or password");
+        throw new AuthenticationError('Invalid username or password');
       }
       const token = await signToken(user);
       user.lastLogin = Date.now();
