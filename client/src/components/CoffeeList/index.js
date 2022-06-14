@@ -4,7 +4,6 @@ import { QUERY_COFFEE } from '../../util/queries';
 import { idbPromise } from '../../util/helpers';
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from '../../util/actions';
 import { useStoreContext } from '../../util/GlobalState';
-import coffeeImage from '../../assets/costa-rica-grounds.png';
 
 function CoffeeList() {
   const { loading, data } = useQuery(QUERY_COFFEE);
@@ -46,7 +45,7 @@ function CoffeeList() {
             <div className='column is-2 is-offset-5' key={coffee.name}>
               <div className='card-image is-centered'>
                 <figure className='image is-centered is-1by1 mb-4'>
-                  <img alt={coffeeImage} src={`/images/${coffee.image}`} />
+                  <img alt={coffee} src={`/images/${coffee.image}`} />
                 </figure>
               </div>
               <div className='card-content-centered'>
