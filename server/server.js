@@ -35,12 +35,12 @@ async function startServer(typeDefs, resolvers) {
 
     if (process.env.NODE_ENV === 'production') {
       // Handle requests for client assets
-      app.use(express.static(path.join(__dirname, 'client/build')));
+      app.use(express.static(path.join(__dirname, '../client/build')));
 
       // Respond with react client for all other requests. This route should be
       // the last route added to the express app.
       app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client/build'));
+        res.sendFile(path.join(__dirname, '../client/build/index.html'));
       });
     }
 
