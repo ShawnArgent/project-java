@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 
-import Cart from "../components/Cart";
-import { useStoreContext } from "../util/GlobalState";
-import {
-  REMOVE_FROM_CART,
-  UPDATE_CART_QUANTITY,
-  ADD_TO_CART,
-  UPDATE_COFFEE,
-} from "../util/actions";
-import { QUERY_COFFEE } from "../util/queries";
-import { idbPromise } from "../util/helpers";
-import spinner from "../assets/spinner.gif";
+import Cart from '../components/Cart';
+import { useStoreContext } from '../util/GlobalState';
+import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY, ADD_TO_CART, UPDATE_COFFEES } from '../util/actions';
+import { QUERY_COFFEE } from '../util/queries';
+import { idbPromise } from '../util/helpers';
+import spinner from '../assets/spinner.gif';
 
 function Detail() {
   const [state, dispatch] = useStoreContext();
@@ -32,19 +27,19 @@ function Detail() {
     // retrieved from server
     else if (data) {
       dispatch({
-        type: UPDATE_COFFEE,
+        type: UPDATE_COFFEES,
         coffees: data.coffees,
       });
 
       data.coffees.forEach((product) => {
-        idbPromise("coffees", "put", product);
+        idbPromise('coffees', 'put', product);
       });
     }
     // get cache from idb
     else if (!loading) {
-      idbPromise("coffees", "get").then((indexedProducts) => {
+      idbPromise('coffees', 'get').then((indexedProducts) => {
         dispatch({
-          type: UPDATE_COFFEE,
+          type: UPDATE_COFFEES,
           coffees: indexedProducts,
         });
       });
@@ -59,7 +54,7 @@ function Detail() {
         _id: id,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
       });
-      idbPromise("cart", "put", {
+      idbPromise('cart', 'put', {
         ...itemInCart,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
       });
@@ -68,7 +63,7 @@ function Detail() {
         type: ADD_TO_CART,
         coffee: { ...currentProduct, purchaseQuantity: 1 },
       });
-      idbPromise("cart", "put", { ...currentProduct, purchaseQuantity: 1 });
+      idbPromise('cart', 'put', { ...currentProduct, purchaseQuantity: 1 });
     }
   };
 
@@ -78,37 +73,30 @@ function Detail() {
       _id: currentProduct._id,
     });
 
-    idbPromise("cart", "delete", { ...currentProduct });
+    idbPromise('cart', 'delete', { ...currentProduct });
   };
 
   return (
     <>
       {currentProduct && cart ? (
-        <div className="container my-1">
-          <Link to="/Shop">← Back to Coffees</Link>
+        <div className='container my-1'>
+          <Link to='/Shop'>← Back to Coffees</Link>
 
           <h2>{currentProduct.name}</h2>
 
           <p>{currentProduct.description}</p>
 
           <p>
-            <strong>Price:</strong>${currentProduct.price}{" "}
-            <button onClick={addToCart}>Add to Cart</button>
-            <button
-              disabled={!cart.find((p) => p._id === currentProduct._id)}
-              onClick={removeFromCart}
-            >
+            <strong>Price:</strong>${currentProduct.price} <button onClick={addToCart}>Add to Cart</button>
+            <button disabled={!cart.find((p) => p._id === currentProduct._id)} onClick={removeFromCart}>
               Remove from Cart
             </button>
           </p>
 
-          <img
-            src={`/images/${currentProduct.image}`}
-            alt={currentProduct.name}
-          />
+          <img src={`/images/${currentProduct.image}`} alt={currentProduct.name} />
         </div>
       ) : null}
-      {loading ? <img src={spinner} alt="loading" /> : null}
+      {loading ? <img src={spinner} alt='loading' /> : null}
       <Cart />
     </>
   );

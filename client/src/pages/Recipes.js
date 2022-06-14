@@ -13,7 +13,7 @@ function RecipeList() {
         <div>Loading...</div>
       ) : (
         recipes.map((recipe) => (
-          <div class='columns is-mobile is-multiline is-centered'>
+          <div className='columns is-mobile is-multiline is-centered'>
             <div className='card' key={recipe.title}>
               <div className='card-image'>
                 <figure className='image is-4by3'>

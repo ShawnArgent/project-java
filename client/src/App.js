@@ -1,51 +1,57 @@
-import { ApolloProvider } from "@apollo/client";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Nav/Navbar";
-import RequireAuth from "./components/RequireAuth";
-import CartHistory from "./pages/CartHistory";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import ProtectedPageExample from "./pages/ProtectedPageExample";
-import SignUp from "./pages/SignUp";
-import Recipe from "./pages/Recipes";
-import Detail from "./pages/Detail";
-import { StoreProvider } from "./util/GlobalState";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
-import Shop from "./pages/Shop";
+import Navbar from './components/Nav/Navbar';
+import Home from './pages/Home';
+import Detail from './pages/Detail';
+import NoMatch from './pages/NoMatch';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import Recipe from './pages/Recipes';
+import CartHistory from './pages/CartHistory';
+import Success from './pages/Success';
+import { StoreProvider } from './util/GlobalState';
 
-import { client } from "./util/apolloClient";
-import { AuthProvider } from "./util/auth";
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 
 function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <AuthProvider>
+        <div>
           <StoreProvider>
             <Navbar />
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/carthistory" element={<CartHistory />} />
-              <Route path="/shop" element={<Shop />} />
-              <Route path="/recipes" element={<Recipe />} />
-              <Route path="/coffees/:id" element={<Detail />} />
-
-              {/* Use <RequiredAuth> for pages that should only be accessible to a
-            user that has logged in.*/}
-
-              <Route
-                path="/protected"
-                element={
-                  <RequireAuth>
-                    <ProtectedPageExample />
-                  </RequireAuth>
-                }
-              />
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/signup' element={<SignUp />} />
+              <Route path='/success' element={<Success />} />
+              <Route path='/carthistory' element={<CartHistory />} />
+              <Route path='/recipes' element={<Recipe />} />
+              <Route path='/coffee/:id' element={<Detail />} />
+              <Route path='*' element={<NoMatch />} />
             </Routes>
           </StoreProvider>
-        </AuthProvider>
+        </div>
       </Router>
     </ApolloProvider>
   );

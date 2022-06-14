@@ -23,6 +23,7 @@
     "concurrently": "^6.4.0"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^4.0.0",
     "bulma": "^0.9.4",
     "heroku": "^7.60.2",
     "react-icons": "^4.4.0",

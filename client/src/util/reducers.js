@@ -1,21 +1,13 @@
-import { useReducer } from "react";
-import {
-  UPDATE_COFFEE,
-  ADD_TO_CART,
-  UPDATE_CART_QUANTITY,
-  REMOVE_FROM_CART,
-  ADD_MULTIPLE_TO_CART,
-  CLEAR_CART,
-  TOGGLE_CART,
-} from "./actions.js";
+import { useReducer } from 'react';
+import { UPDATE_COFFEES, ADD_TO_CART, UPDATE_CART_QUANTITY, REMOVE_FROM_CART, ADD_MULTIPLE_TO_CART, CLEAR_CART, TOGGLE_CART } from './actions.js';
 
 export const reducer = (state, action) => {
   console.log(action.type);
   switch (action.type) {
-    case UPDATE_COFFEE:
+    case UPDATE_COFFEES:
       return {
         ...state,
-        coffee: [...action.coffee],
+        coffees: [...action.coffees],
       };
 
     case ADD_TO_CART:

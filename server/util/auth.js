@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
-const util = require("util");
+const jwt = require('jsonwebtoken');
+const util = require('util');
 
 const { SECRET, TOKEN_EXP } = process.env;
 
@@ -7,7 +7,6 @@ jwt.sign = util.promisify(jwt.sign);
 jwt.verify = util.promisify(jwt.verify);
 
 const signToken = (user) => {
-  // TODO: customize the data encoded within the token
   const data = {
     _id: user._id,
     email: user.email,
@@ -25,7 +24,7 @@ const authMiddleware = async ({ req }) => {
 
   // Split the token string into an array and return actual token
   if (req.headers.authorization) {
-    token = token.split(" ").pop().trim();
+    token = token.split(' ').pop().trim();
   }
 
   if (!token) {
