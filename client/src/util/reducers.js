@@ -7,7 +7,7 @@ export const reducer = (state, action) => {
     case UPDATE_COFFEES:
       return {
         ...state,
-        coffees: [...action.coffees],
+        coffee: [...action.coffees],
       };
 
     case ADD_TO_CART:

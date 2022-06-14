@@ -17,7 +17,7 @@ export default function Navbar() {
         <div className='navbar-end'>
           {isLoggedIn ? (
             <>
-              <NavLink to='/CartHistory' className='nav-item nav-link'>
+              <NavLink to='/carthistory' className='nav-item nav-link'>
                 Cart History
               </NavLink>
               <button className='nav-item nav-link nav-link' onClick={logout}>
@@ -26,16 +26,16 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <NavLink to='/CartHistory' className='cart-icon'>
+              <NavLink to='/carthistory' className='cart-icon'>
                 <AiFillShopping />
               </NavLink>
-              <NavLink to='/Login' className='nav-item nav-link'>
+              <NavLink to='/login' className='nav-item nav-link'>
                 Login
               </NavLink>
-              <NavLink to='/Recipes' className='nav-item nav-link'>
+              <NavLink to='/recipes' className='nav-item nav-link'>
                 Recipes
               </NavLink>
-              <NavLink to='/CoffeeList' className='nav-item nav-link'>
+              <NavLink to='/shop' className='nav-item nav-link'>
                 Shop
               </NavLink>
             </>

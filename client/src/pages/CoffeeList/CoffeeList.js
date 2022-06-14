@@ -1,8 +1,7 @@
-import React from 'react';
 import { useEffect } from 'react';
-import CoffeeItem from '../CoffeeItem';
+import CoffeeItem from '../../components/CoffeeItem/CoffeeItem';
 import { useStoreContext } from '../../util/GlobalState';
-import { UPDATE_COFFEE } from '../../util/actions';
+import { UPDATE_COFFEES } from '../../util/actions';
 import { useQuery } from '@apollo/client';
 import { QUERY_COFFEE } from '../../util/queries';
 import { idbPromise } from '../../util/helpers';
@@ -13,21 +12,22 @@ function CoffeeList() {
   const { currentCategory } = state;
 
   const { loading, data } = useQuery(QUERY_COFFEE);
+  console.log(data);
 
   useEffect(() => {
     if (data) {
       dispatch({
-        type: UPDATE_COFFEE,
+        type: UPDATE_COFFEES,
 
-        coffee: data.coffee,
+        coffees: data.coffees,
       });
-      data.coffee.forEach((coffee) => {
-        idbPromise('coffee', 'put', coffee);
+      data.coffees.forEach((coffee) => {
+        idbPromise('coffees', 'put', coffee);
       });
     } else if (!loading) {
-      idbPromise('coffee', 'get').then((coffee) => {
+      idbPromise('coffees', 'get').then((coffee) => {
         dispatch({
-          type: UPDATE_COFFEE,
+          type: UPDATE_COFFEES,
           coffee: coffee,
         });
       });
@@ -63,7 +63,7 @@ function CoffeeList() {
           ))}
         </div>
       ) : (
-        <h3>You haven't added any coffee yet!</h3>
+        <h3>Out of Stock!</h3>
       )}
       {loading ? <img src={spinner} alt='loading' /> : null}
     </div>

@@ -1,5 +1,5 @@
 const db = require('./connection');
-const { User, Coffee, Recipe } = require('../models');
+const { User, Category, Coffee, Recipe } = require('../models');
 
 db.once('open', async () => {
   await Recipe.deleteMany();
@@ -170,7 +170,7 @@ db.once('open', async () => {
     {
       title: 'Cold Brew',
       description:
-        'The trendiest of the iced coffee bunch, cold brew coffees are made by steeping coffee beans from anywhere between 6-36 hours, depending on how strong you would like your cold brew. Once the beans are done steeping, add cold milk or cream.',
+        'The trendiest of the iced coffee bunch, cold brew coffee are made by steeping coffee beans from anywhere between 6-36 hours, depending on how strong you would like your cold brew. Once the beans are done steeping, add cold milk or cream.',
       ingredients: ['Long steeped coffee', 'Ice'],
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/ColdBrewCoffeein_Cans.png/640px-ColdBrewCoffeein_Cans.png',
       id: 3,
@@ -200,9 +200,14 @@ db.once('open', async () => {
 
   console.log('recipes seeded');
 
+  await Category.deleteMany();
+
+  const categories = await Category.insertMany([{ name: 'Ground' }, { name: 'Beans' }]);
+  console.log('categories seeded');
+
   await Coffee.deleteMany();
 
-  const coffees = await Coffee.insertMany([
+  const coffee = await Coffee.insertMany([
     {
       name: 'Costa Rica Coffee',
       roast: 'Medium',
@@ -349,7 +354,7 @@ db.once('open', async () => {
     },
   ]);
 
-  console.log('coffees seeded');
+  console.log('coffee seeded');
 
   await User.deleteMany();
 
@@ -360,7 +365,7 @@ db.once('open', async () => {
     password: 'password12345',
     orders: [
       {
-        coffees: [coffees[0]._id, coffees[0]._id, coffees[1]._id],
+        coffee: [coffee[0]._id, coffee[0]._id, coffee[1]._id],
       },
     ],
   });
