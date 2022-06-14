@@ -14,7 +14,8 @@
     "server": "cd server && npm run watch",
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
-    "seed": "cd server && npm run seed"
+    "seed": "cd server && npm run seed",
+    "heroku-postbuild": "echo Skip build on Heroku"
   },
   "keywords": [],
   "author": "",
@@ -29,5 +30,6 @@
     "react-icons": "^4.4.0",
     "react-simple-file-upload": "^1.0.1",
     "serve": "^13.0.2"
-  }
+  },
+  "heroku-run-build-script": true
 }
