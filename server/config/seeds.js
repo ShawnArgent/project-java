@@ -202,7 +202,7 @@ db.once('open', async () => {
 
   await Category.deleteMany();
 
-  const categories = await Category.insertMany([{ name: 'Ground' }, { name: 'Beans' }]);
+  const category = await Category.insertMany([{ name: 'Ground' }, { name: 'Beans' }]);
   console.log('categories seeded');
 
   await Coffee.deleteMany();
@@ -354,7 +354,7 @@ db.once('open', async () => {
     },
   ]);
 
-  console.log('coffee seeded');
+  console.log('coffees seeded');
 
   await User.deleteMany();
 
