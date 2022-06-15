@@ -10,9 +10,10 @@ const typeDefs = gql`
   }
 
   type Category {
-    _id: ID!
+    _id: ID
     name: String
   }
+
   type Product {
     _id: ID
     name: String
@@ -50,10 +51,20 @@ const typeDefs = gql`
   }
   type Query {
     category: [Category]
-    product(category: ID, _id: ID!, name: String): [Product]
+    products(category: ID, name: String): [Product]
+    product(_id: ID!): Product
     user: User
     order(_id: ID!): Order
     checkout(product: [ID]!): Checkout
+  }
+
+  type Query {
+    "Find the logged in user."
+    me: User
+    coffees: [Coffee]
+    coffee(_id: ID!): Coffee
+    checkout(coffees: [ID]!): Checkout
+    recipes: [Recipe]
   }
 
   type Mutation {

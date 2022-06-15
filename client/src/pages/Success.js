@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import Jumbotron from '../components/Jumbotron';
-import { CREATE_ORDER } from '../util/mutations';
+import { ADD_ORDER } from '../util/mutations';
 import { idbPromise } from '../util/helpers';
 
 function Success() {
-  const [createOrder] = useMutation(CREATE_ORDER);
+  const [addOrder] = useMutation(ADD_ORDER);
 
   useEffect(() => {
     async function saveOrder() {
@@ -13,7 +13,7 @@ function Success() {
       const product = cart.map((product) => product._id);
 
       if (product.length) {
-        const { data } = await createOrder({ variables: { product } });
+        const { data } = await addOrder({ variables: { product } });
         const productData = data.addOrder.product;
 
         productData.forEach((item) => {
@@ -27,7 +27,7 @@ function Success() {
     }
 
     saveOrder();
-  }, [createOrder]);
+  }, [addOrder]);
 
   return (
     <Jumbotron>
