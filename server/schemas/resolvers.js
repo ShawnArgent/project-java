@@ -1,5 +1,5 @@
 const { AuthenticationError, UserInputError } = require('apollo-server-express');
-const { User, Coffee, Category, Order, Recipe } = require('../models');
+const { User, Product, Category, Order, Recipe } = require('../models');
 const { signToken } = require('../util/auth');
 const { SERVER_API_KEY } = process.env;
 
@@ -11,7 +11,7 @@ const resolvers = {
     category: async () => {
       return await Category.find();
     },
-    coffees: async (parent, { category, name }) => {
+    product: async (parent, { category, name }) => {
       const params = {};
 
       if (category) {
@@ -24,15 +24,15 @@ const resolvers = {
         };
       }
 
-      return await Coffee.find(params).populate('category');
+      return await Product.find(params).populate('category');
     },
-    coffee: async (parent, { _id }) => {
-      return await Coffee.findById(_id).populate('category');
+    product: async (parent, { _id }) => {
+      return await Product.findById(_id).populate('category');
     },
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
-          path: 'orders.coffees',
+          path: 'orders.product',
           populate: 'category',
         });
 
@@ -46,7 +46,7 @@ const resolvers = {
     order: async (parent, { _id }, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
-          path: 'orders.coffees',
+          path: 'orders.product',
           populate: 'category',
         });
 
@@ -57,22 +57,22 @@ const resolvers = {
     },
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
-      const order = new Order({ coffees: args.coffees });
-      const { coffees } = await order.populate('coffees').execPopulate();
+      const order = new Order({ product: args.product });
+      const { product } = await order.populate('product').execPopulate();
       const line_items = [];
 
       for (let i = 0; i < c0ffees.length; i++) {
-        // generate coffee id
-        const coffee = await stripe.coffees.create({
-          name: coffees[i].name,
-          description: coffees[i].description,
-          images: [`${url}/images/${coffees[i].image}`],
+        // generate product id
+        const product = await stripe.product.create({
+          name: product[i].name,
+          description: product[i].description,
+          images: [`${url}/images/${product[i].image}`],
         });
 
-        // generate price id using the coffee id
+        // generate price id using the product id
         const price = await stripe.prices.create({
-          coffee: cofee.id,
-          unit_amount: coffees[i].price * 100,
+          product: cofee.id,
+          unit_amount: product[i].price * 100,
           currency: 'usd',
         });
 
@@ -101,9 +101,9 @@ const resolvers = {
 
       return { token, user };
     },
-    addOrder: async (parent, { coffees }, context) => {
+    addOrder: async (parent, { product }, context) => {
       if (context.user) {
-        const order = new Order({ coffees });
+        const order = new Order({ product });
 
         await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
 
@@ -119,10 +119,10 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
-    updateCoffees: async (parent, { _id, quantity }) => {
+    updateProduct: async (parent, { _id, quantity }) => {
       const decrement = Math.abs(quantity) * -1;
 
-      return await Coffee.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
+      return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });

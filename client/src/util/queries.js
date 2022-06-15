@@ -1,18 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const ME = gql`
-  query me {
-    me {
-      _id
-      lastLogin
-      username
-      email
-    }
-  }
-`;
-export const QUERY_COFFEE = gql`
-  query getCoffees {
-    coffees {
+export const QUERY_PRODUCT = gql`
+  query getProduct {
+    product {
       _id
       name
       roast
@@ -26,16 +16,7 @@ export const QUERY_COFFEE = gql`
     }
   }
 `;
-
-export const QUERY_CHECKOUT = gql`
-  query getCheckout($coffee: [ID]!) {
-    checkout(coffees: $coffee) {
-      session
-    }
-  }
-`;
-
-export const QUERY_ALL_COFFEE = gql`
+export const QUERY_ALL_PRODUCT = gql`
   {
     coffee {
       _id
@@ -43,6 +24,14 @@ export const QUERY_ALL_COFFEE = gql`
       description
       price
       quantity
+    }
+  }
+`;
+
+export const QUERY_CHECKOUT = gql`
+  query getCheckout($product: [ID]!) {
+    checkout(product: $product) {
+      session
     }
   }
 `;
@@ -55,7 +44,7 @@ export const QUERY_USER = gql`
       orders {
         _id
         purchaseDate
-        coffees {
+        product {
           _id
           name
           description

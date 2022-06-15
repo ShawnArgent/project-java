@@ -3,7 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { useLazyQuery } from '@apollo/client';
 import { QUERY_CHECKOUT } from '../../util/queries';
 import { idbPromise } from '../../util/helpers';
-import CartItem from '../CartItem';
+import CartItem from '../CartItem/CartItem';
 import { useAuth } from '../../util/auth';
 import { useStoreContext } from '../../util/GlobalState';
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../util/actions';
@@ -26,7 +26,7 @@ const Cart = () => {
   useEffect(() => {
     async function getCart() {
       const cart = await idbPromise('cart', 'get');
-      dispatch({ type: ADD_MULTIPLE_TO_CART, coffees: [...cart] });
+      dispatch({ type: ADD_MULTIPLE_TO_CART, product: [...cart] });
     }
 
     if (!state.cart.length) {
@@ -47,16 +47,16 @@ const Cart = () => {
   }
 
   function submitCheckout() {
-    const coffeeIds = [];
+    const productIds = [];
 
     state.cart.forEach((item) => {
       for (let i = 0; i < item.purchaseQuantity; i++) {
-        coffeeIds.push(item._id);
+        productIds.push(item._id);
       }
     });
 
     getCheckout({
-      variables: { coffees: coffeeIds },
+      variables: { product: productIds },
     });
   }
 

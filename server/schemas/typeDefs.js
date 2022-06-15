@@ -1,9 +1,6 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  "Unix time stamp in milliseconds."
-  scalar Date
-
   type User {
     _id: ID
     firstName: String
@@ -13,10 +10,10 @@ const typeDefs = gql`
   }
 
   type Category {
-    _id: ID
+    _id: ID!
     name: String
   }
-  type Coffee {
+  type Product {
     _id: ID
     name: String
     roast: String
@@ -32,7 +29,7 @@ const typeDefs = gql`
   type Order {
     _id: ID!
     purchaseDate: String
-    coffees: [Coffee]
+    product: [Product]
   }
 
   type Recipe {
@@ -51,20 +48,19 @@ const typeDefs = gql`
     token: String!
     user: User!
   }
-
   type Query {
-    "Find the logged in user."
-    me: User
-    coffees: [Coffee]
-    coffee(_id: ID!): Coffee
-    checkout(coffees: [ID]!): Checkout
-    recipes: [Recipe]
+    category: [Category]
+    product(category: ID, _id: ID!, name: String): [Product]
+    user: User
+    order(_id: ID!): Order
+    checkout(product: [ID]!): Checkout
   }
 
   type Mutation {
-    createUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    newOrder(coffees: [ID]!): Order
-    updateCoffee(_id: ID!, quantity: Int!): Coffee
+    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+    addOrder(product: [ID]!): Order
+    updateUser(firstName: String, lastName: String, email: String, password: String): User
+    updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
   }
 `;

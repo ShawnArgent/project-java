@@ -1,59 +1,63 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-import Cart from '../components/Cart';
-import { useStoreContext } from '../util/GlobalState';
-import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY, ADD_TO_CART, UPDATE_COFFEES } from '../util/actions';
-import { QUERY_COFFEE } from '../util/queries';
+import { QUERY_PRODUCT } from '../util/queries';
+
 import { idbPromise } from '../util/helpers';
+import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY, ADD_TO_CART, UPDATE_PRODUCT } from '../util/actions';
+
+import Cart from '../components/Cart/Cart';
 import spinner from '../assets/spinner.gif';
 
 function Detail() {
-  const [state, dispatch] = useStoreContext();
+  const dispatch = useDispatch();
+  const product = useSelector((state) => state.product);
+  const cart = useSelector((state) => state.cart);
   const { id } = useParams();
 
   const [currentProduct, setCurrentProduct] = useState({});
-
-  const { loading, data } = useQuery(QUERY_COFFEE);
-
-  const { coffees, cart } = state;
+  const { loading, data } = useQuery(QUERY_PRODUCT);
 
   useEffect(() => {
     // already in global store
-    if (coffees.length) {
-      setCurrentProduct(coffees.find((product) => product._id === id));
-    }
-    // retrieved from server
-    else if (data) {
+    if (product.length) {
+      setCurrentProduct(product.find((product) => product._id === id));
+
+      // retrieved from server
+    } else if (data) {
       dispatch({
-        type: UPDATE_COFFEES,
-        coffees: data.coffees,
+        type: UPDATE_PRODUCT,
+        product: data.product,
       });
 
-      data.coffees.forEach((product) => {
-        idbPromise('coffees', 'put', product);
+      data.product.forEach((product) => {
+        idbPromise('product', 'put', product);
       });
-    }
-    // get cache from idb
-    else if (!loading) {
-      idbPromise('coffees', 'get').then((indexedProducts) => {
+
+      // get cache from idb
+    } else if (!loading) {
+      idbPromise('product', 'get').then((indexedProducts) => {
         dispatch({
-          type: UPDATE_COFFEES,
-          coffees: indexedProducts,
+          type: UPDATE_PRODUCT,
+          product: indexedProducts,
         });
       });
     }
-  }, [coffees, data, loading, dispatch, id]);
+  }, [product, data, loading, dispatch, id]);
 
   const addToCart = () => {
     const itemInCart = cart.find((cartItem) => cartItem._id === id);
+
     if (itemInCart) {
       dispatch({
         type: UPDATE_CART_QUANTITY,
         _id: id,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
       });
+
+      // update indexedDB
       idbPromise('cart', 'put', {
         ...itemInCart,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
@@ -61,9 +65,10 @@ function Detail() {
     } else {
       dispatch({
         type: ADD_TO_CART,
-        coffee: { ...currentProduct, purchaseQuantity: 1 },
+        product: { ...currentProduct, purchaseQuantity: 1 },
       });
-      idbPromise('cart', 'put', { ...currentProduct, purchaseQuantity: 1 });
+
+      idbPromise('cart', 'pub', { ...currentProduct, purchaseQuantity: 1 });
     }
   };
 
@@ -73,14 +78,15 @@ function Detail() {
       _id: currentProduct._id,
     });
 
+    // delete from indexedDB
     idbPromise('cart', 'delete', { ...currentProduct });
   };
 
   return (
     <>
-      {currentProduct && cart ? (
+      {currentProduct ? (
         <div className='container my-1'>
-          <Link to='/Shop'>← Back to Coffees</Link>
+          <Link to='/'>← Back to Products</Link>
 
           <h2>{currentProduct.name}</h2>
 

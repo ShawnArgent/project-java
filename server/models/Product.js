@@ -42,11 +42,7 @@ const productSchema = new Schema({
     required: true,
     trim: true,
   },
-  roast: {
-    type: String,
-    required: true,
-    trim: true,
-  },
+
   category: {
     type: String,
     ref: 'Category',

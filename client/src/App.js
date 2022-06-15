@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import CoffeeList from './pages/CoffeeList/CoffeeList';
+import ProductList from './pages/ProductList';
 import Navbar from './components/Nav/Navbar';
 import Home from './pages/Home';
 import Detail from './pages/Detail';
@@ -47,7 +47,7 @@ function App() {
               <Route path='/success' element={<Success />} />
               <Route path='/carthistory' element={<CartHistory />} />
               <Route path='/recipes' element={<Recipe />} />
-              <Route path='/shop' element={<CoffeeList />} />
+              <Route path='/shop' element={<ProductList />} />
               <Route path='/coffee/:id' element={<Detail />} />
               <Route path='*' element={<NoMatch />} />
             </Routes>

@@ -5,7 +5,7 @@ import { useStoreContext } from '../../util/GlobalState';
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from '../../util/actions';
 import { idbPromise } from '../../util/helpers';
 
-function CoffeeItem(item) {
+function ProductItem(item) {
   const [state, dispatch] = useStoreContext();
 
   const { image, _id, name, roast, price, type, quantity } = item;
@@ -28,7 +28,7 @@ function CoffeeItem(item) {
     } else {
       dispatch({
         type: ADD_TO_CART,
-        coffee: { ...item, purchaseQuantity: 1 },
+        product: { ...item, purchaseQuantity: 1 },
       });
       idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
     }
@@ -38,14 +38,14 @@ function CoffeeItem(item) {
     <div className='card'>
       <div className='card-image'>
         <figure className='image is-4by3'>
-          <NavLink to={`/coffee/${_id}`}>
+          <NavLink to={`/product/${_id}`}>
             <img alt={name} src={`/images/${image}`} />
             <p>{name}</p>
           </NavLink>
         </figure>
       </div>
       <div>
-        {quantity} {pluralize('item', quantity)} in stock
+        {quantity} {pluralize('item', quantity)} in stock{' '}
       </div>
 
       <div className='card-content'>
@@ -63,4 +63,4 @@ function CoffeeItem(item) {
   );
 }
 
-export default CoffeeItem;
+export default ProductItem;

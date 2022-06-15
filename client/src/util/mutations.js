@@ -9,10 +9,10 @@ export const LOGIN = gql`
 `;
 
 export const CREATE_ORDER = gql`
-  mutation addOrder($coffees: [ID]!) {
-    addOrder(coffees: $coffees) {
+  mutation addOrder($product: [ID]!) {
+    addOrder(product: $product) {
       purchaseDate
-      coffees {
+      product {
         _id
         name
         description

@@ -33,9 +33,9 @@ const CartItem = ({ item }) => {
   };
 
   return (
-    <div className="flex-row">
+    <div className='flex-row'>
       <div>
-        <img src={`/images/${item.image}`} alt="" />
+        <img src={`/images/${item.image}`} alt='' />
       </div>
       <div>
         <div>
@@ -43,8 +43,8 @@ const CartItem = ({ item }) => {
         </div>
         <div>
           <span>Qty:</span>
-          <input type="number" placeholder="1" value={item.purchaseQuantity} onChange={onChange} />
-          <span role="img" aria-label="trash" onClick={() => removeFromCart(item)}>
+          <input type='number' placeholder='1' value={item.purchaseQuantity} onChange={onChange} />
+          <span role='img' aria-label='trash' onClick={() => removeFromCart(item)}>
             🗑️
           </span>
         </div>
