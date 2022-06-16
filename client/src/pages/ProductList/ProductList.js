@@ -1,64 +1,62 @@
 import { useEffect } from 'react';
-import ProductItem from '../components/ProductItem/ProductItem';
-import { useStoreContext } from '../util/GlobalState';
-import { UPDATE_PRODUCT } from '../util/actions';
+import ProductItem from '../../components/ProductItem/ProductItem';
+import { useStoreContext } from '../../util/GlobalState';
+import { UPDATE_PRODUCTS } from '../../util/actions';
 import { useQuery } from '@apollo/client';
-import { QUERY_PRODUCT } from '../util/queries';
-import { idbPromise } from '../util/helpers';
-import spinner from '../assets/spinner.gif';
+import { QUERY_PRODUCT } from '../../util/queries';
+import { idbPromise } from '../../util/helpers';
+import spinner from '../../assets/spinner.gif';
 
 function ProductList() {
   const [state, dispatch] = useStoreContext();
   const { currentCategory } = state;
 
   const { loading, data } = useQuery(QUERY_PRODUCT);
-  console.log(data);
 
   useEffect(() => {
     if (data) {
       dispatch({
-        type: UPDATE_PRODUCT,
+        type: UPDATE_PRODUCTS,
 
-        product: data.product,
+        products: data.products,
       });
-      data.product.forEach((product) => {
-        idbPromise('product', 'put', product);
+      data.products.forEach((product) => {
+        idbPromise('products', 'put', product);
       });
     } else if (!loading) {
-      idbPromise('product', 'get').then((product) => {
+      idbPromise('products', 'get').then((product) => {
         dispatch({
-          type: UPDATE_PRODUCT,
+          type: UPDATE_PRODUCTS,
           product: product,
         });
       });
     }
   }, [data, loading, dispatch]);
 
-  function filterProduct() {
+  function filterProducts() {
     if (!currentCategory) {
-      return state.product;
+      return state.products;
     }
 
-    return state.product.filter((product) => product.category._id === currentCategory);
+    return state.products.filter((product) => product.category._id === currentCategory);
   }
 
   return (
     <div className='box'>
-      <p>Our product</p>
+      <p>Our Coffees</p>
       {state.product.length ? (
         <div className='columns'>
-          {filterProduct().map((product) => (
+          {filterProducts().map((product) => (
             <ProductItem
               key={product._id}
               _id={product._id}
               image={product.image}
               name={product.name}
-              type={product.type}
-              roast={product.roast}
+              category={product.category}
               price={product.price}
               profile={product.profile}
               location={product.location}
-              history={product.history}
+              locationhistory={product.history}
             />
           ))}
         </div>

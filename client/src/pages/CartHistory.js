@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { useQuery } from '@apollo/client';
 import { QUERY_USER } from '../util/queries';
@@ -15,7 +15,7 @@ function CartHistory() {
   return (
     <>
       <div className='container my-1'>
-        <NavLink to='/'> Back to Coffee!</NavLink>
+        <Link to='/'> Back to Coffee!</Link>
 
         {user ? (
           <>
@@ -28,10 +28,10 @@ function CartHistory() {
                 <div className='flex-row'>
                   {order.product.map(({ _id, image, name, price }, index) => (
                     <div key={index} className='card px-1 py-1'>
-                      <NavLink to={`/product/${_id}`}>
+                      <Link to={`/product/${_id}`}>
                         <img alt={name} src={`/images/${image}`} />
                         <p>{name}</p>
-                      </NavLink>
+                      </Link>
                       <div>
                         <span>${price}</span>
                       </div>

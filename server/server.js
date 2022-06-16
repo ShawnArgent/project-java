@@ -5,7 +5,6 @@ const { ApolloServer } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 const { authMiddleware } = require('./util/auth');
-
 const PORT = process.env.PORT || 3001;
 
 startServer(typeDefs, resolvers);
@@ -32,6 +31,8 @@ async function startServer(typeDefs, resolvers) {
 
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
+
+    app.use('/images', express.static(path.join(__dirname, '../client/images')));
 
     if (process.env.NODE_ENV === 'production') {
       // Handle requests for client assets

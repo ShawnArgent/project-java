@@ -11,7 +11,7 @@ const resolvers = {
     category: async () => {
       return await Category.find();
     },
-    product: async (parent, { category, name }) => {
+    products: async (parent, { category, name }) => {
       const params = {};
 
       if (category) {
@@ -20,7 +20,7 @@ const resolvers = {
 
       if (name) {
         params.name = {
-          $regex: name,
+          $regex: name
         };
       }
 
@@ -32,7 +32,7 @@ const resolvers = {
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
-          path: 'orders.product',
+          path: 'orders.products',
           populate: 'category',
         });
 
@@ -46,8 +46,8 @@ const resolvers = {
     order: async (parent, { _id }, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
-          path: 'orders.product',
-          populate: 'category',
+          path: 'orders.products',
+          populate: 'category'
         });
 
         return user.orders.id(_id);
@@ -57,26 +57,24 @@ const resolvers = {
     },
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
-      const order = new Order({ product: args.product });
-      const { product } = await order.populate('product').execPopulate();
+      const order = new Order({ products: args.products });
       const line_items = [];
 
-      for (let i = 0; i < c0ffees.length; i++) {
-        // generate product id
-        const product = await stripe.product.create({
-          name: product[i].name,
-          description: product[i].description,
-          images: [`${url}/images/${product[i].image}`],
+      const { products } = await order.populate('products');
+
+      for (let i = 0; i < products.length; i++) {
+        const product = await stripe.products.create({
+          name: products[i].name,
+          description: products[i].description,
+          images: [`${url}/images/${products[i].image}`],
         });
 
-        // generate price id using the product id
         const price = await stripe.prices.create({
-          product: cofee.id,
-          unit_amount: product[i].price * 100,
+          product: product.id,
+          unit_amount: products[i].price * 100,
           currency: 'usd',
         });
 
-        // add price id to the line items array
         line_items.push({
           price: price.id,
           quantity: 1,
@@ -101,9 +99,10 @@ const resolvers = {
 
       return { token, user };
     },
-    addOrder: async (parent, { product }, context) => {
+    addOrder: async (parent, { products }, context) => {
+      console.log(context);
       if (context.user) {
-        const order = new Order({ product });
+        const order = new Order({ products });
 
         await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
 
