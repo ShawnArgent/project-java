@@ -54,7 +54,7 @@ type User {
     "Find the logged in user."
     user: User
     categories: [Category]
-    coffees(category: ID, name: String):: [Coffee]
+    coffees(category: ID, name: String): [Coffee]
     coffee(_id: ID!): Coffee
     checkout(coffees: [ID]!): Checkout
     recipes: [Recipe]
