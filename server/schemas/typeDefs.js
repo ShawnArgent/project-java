@@ -52,7 +52,7 @@ type User {
 
   type Query {
     "Find the logged in user."
-    me: User
+    user: User
     categories: [Category]
     coffees(category: ID, name: String):: [Coffee]
     coffee(_id: ID!): Coffee
