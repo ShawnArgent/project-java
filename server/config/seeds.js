@@ -212,7 +212,6 @@ db.once('open', async () => {
       name: 'Sumatra',
       roast: 'Light Roast',
       type: 'Light Roast',
-      category: categories[0]._id,
       quantity: 450,
       price: 10.99,
       tastingProfile: 'Earthy, Bell Pepper, Rich Chocolate',
@@ -225,7 +224,6 @@ db.once('open', async () => {
       name: 'Yirgacheffe Aduu',
       roast: 'Light Roast',
       type: 'Light Roast',
-      category: categories[0]._id,
       quantity: 700,
       price: 10.99,
       tastingProfile: 'Raspberry, Blueberry, Sweet Chocolate',
@@ -238,7 +236,6 @@ db.once('open', async () => {
       name: 'Costa Rica Pura Vida',
       roast: 'Medium Roast',
       type: 'Medium Roast',
-      category: categories[1]._id,
       quantity: 500,
       price: 12.99,
       tastingProfile: 'Milk Chocolate, Sweet Cream',
@@ -252,7 +249,6 @@ db.once('open', async () => {
       name: 'Oceania',
       roast: 'Medium Roast',
       type: 'Medium Roast',
-      category: categories[1]._id,
       quantity: 600,
       price: 13.99,
       tastingProfile: 'Nougat, Floral-like Black Tea, Green Apple',
@@ -265,7 +261,6 @@ db.once('open', async () => {
       name: 'Dias en Brasil',
       roast: 'Dark Roast',
       type: 'Dark Roast',
-      category: categories[2]._id,
       quantity: 700,
       price: 11.99,
       tastingProfile: 'Chocolate, Coconut, Vanilla',
@@ -279,7 +274,6 @@ db.once('open', async () => {
       name: 'Dias en Colombia',
       roast: 'Dark Roast',
       type: 'Dark Roast',
-      category: categories[2]._id,
       quantity: 400,
       price: 14.99,
       tastingProfile: 'Plum & Grape, Graham Cracker, Toasted Marshmallow',
@@ -291,7 +285,7 @@ db.once('open', async () => {
     
   ]);
 
-  console.log('coffees seeded');
+  console.log('products seeded');
 
   await User.deleteMany();
 
