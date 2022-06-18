@@ -8,7 +8,7 @@ const stripe = require('stripe')(SERVER_API_KEY);
 
 const resolvers = {
   Query: {
-    category: async () => {
+    categories: async () => {
       return await Category.find();
     },
     coffees: async (parent, { category, name }) => {
