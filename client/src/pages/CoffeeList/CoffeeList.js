@@ -43,22 +43,22 @@ function CoffeeList() {
   }
 
   return (
-    <div className='box'>
-      <p>Our coffee</p>
-      {state.coffee.length ? (
-        <div className='columns'>
-          {filterCoffee().map((coffee) => (
-            <CoffeeItem
-              key={coffee._id}
-              _id={coffee._id}
-              image={coffee.image}
-              name={coffee.name}
-              type={coffee.type}
-              roast={coffee.roast}
-              price={coffee.price}
-              profile={coffee.profile}
-              location={coffee.location}
-              history={coffee.history}
+    <div className='box has-text-centered'>
+    <h1 className='title'>Our Coffees</h1>
+    {state.coffee.length ? (
+     <div class="columns is-variable is-1-mobile is-0-tablet is-3-desktop is-8-widescreen is-2-fullhd">
+
+        {filterCoffee().map((coffee) => (
+          <CoffeeItem
+            key={coffee._id}
+            _id={coffee._id}
+            image={coffee.image}
+            name={coffee.name}
+            type={coffee.type}
+            price={coffee.price}
+            location={coffee.location}
+            profile={coffee.profile}
+            history={coffee.history}
             />
           ))}
         </div>

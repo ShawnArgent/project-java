@@ -8,7 +8,7 @@ import { idbPromise } from '../../util/helpers';
 function CoffeeItem(item) {
   const [state, dispatch] = useStoreContext();
 
-  const { image, _id, name, roast, price, type, quantity } = item;
+  const { image, _id, name, price, type, quantity } = item;
 
   const { cart } = state;
 
@@ -52,7 +52,6 @@ function CoffeeItem(item) {
         <div className='media'>
           <div className='media-content'>
             <p className='title is-4'>{name}</p>
-            <p className='subtitle is-6'>{roast}</p>
             <p className='subtitle is-6'>${price}</p>
             <p className='subtitle is-6'>{type}</p>
             <button onClick={addToCart}>Add to cart</button>

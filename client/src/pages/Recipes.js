@@ -16,7 +16,7 @@ function RecipeList() {
           <div className='columns is-mobile is-multiline is-centered'>
             <div className='card' key={recipe.title}>
               <div className='card-image'>
-                <figure className='image is-4by3'>
+                <figure className='image is-5by5'>
                   <img alt={recipe.title} src={recipe.image} />
                 </figure>
               </div>

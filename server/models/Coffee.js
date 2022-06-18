@@ -8,11 +8,7 @@ const coffeeSchema = new Schema({
     required: true,
     trim: true,
   },
-  roast: {
-    type: String,
-    required: true,
-    trim: true,
-  },
+ 
   type: {
     type: String,
     required: true,
