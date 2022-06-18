@@ -1,14 +1,14 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { pluralize } from '../../util/helpers';
 import { useStoreContext } from '../../util/GlobalState';
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from '../../util/actions';
 import { idbPromise } from '../../util/helpers';
 
-function CoffeeItem(item) {
+function ProductItem(item) {
   const [state, dispatch] = useStoreContext();
 
-  const { image, _id, name, roast, price, type, quantity } = item;
+  const { image, _id, name, category, price, type, quantity } = item;
 
   const { cart } = state;
 
@@ -28,7 +28,7 @@ function CoffeeItem(item) {
     } else {
       dispatch({
         type: ADD_TO_CART,
-        coffee: { ...item, purchaseQuantity: 1 },
+        product: { ...item, purchaseQuantity: 1 },
       });
       idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
     }
@@ -38,21 +38,21 @@ function CoffeeItem(item) {
     <div className='card'>
       <div className='card-image'>
         <figure className='image is-4by3'>
-          <NavLink to={`/coffee/${_id}`}>
+          <Link to={`/products/${_id}`}>
             <img alt={name} src={`/images/${image}`} />
             <p>{name}</p>
-          </NavLink>
+          </Link>
         </figure>
       </div>
       <div>
-        {quantity} {pluralize('item', quantity)} in stock
+        {quantity} {pluralize('item', quantity)} in stock{' '}
       </div>
 
       <div className='card-content'>
         <div className='media'>
           <div className='media-content'>
             <p className='title is-4'>{name}</p>
-            <p className='subtitle is-6'>{roast}</p>
+            <p className='subtitle is-6'>{category}</p>
             <p className='subtitle is-6'>${price}</p>
             <p className='subtitle is-6'>{type}</p>
             <button onClick={addToCart}>Add to cart</button>
@@ -63,4 +63,4 @@ function CoffeeItem(item) {
   );
 }
 
-export default CoffeeItem;
+export default ProductItem;

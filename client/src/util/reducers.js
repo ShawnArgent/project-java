@@ -1,26 +1,26 @@
 import { useReducer } from 'react';
-import { UPDATE_COFFEES, ADD_TO_CART, UPDATE_CART_QUANTITY, REMOVE_FROM_CART, ADD_MULTIPLE_TO_CART, CLEAR_CART, TOGGLE_CART } from './actions.js';
+import { UPDATE_PRODUCTS, ADD_TO_CART, UPDATE_CART_QUANTITY, REMOVE_FROM_CART, ADD_MULTIPLE_TO_CART,  UPDATE_CATEGORY,
+  UPDATE_CURRENT_CATEGORY, CLEAR_CART, TOGGLE_CART } from './actions.js';
 
 export const reducer = (state, action) => {
-  console.log(action.type);
   switch (action.type) {
-    case UPDATE_COFFEES:
+    case UPDATE_PRODUCTS:
       return {
         ...state,
-        coffee: [...action.coffees],
+        product: [...action.product],
       };
 
     case ADD_TO_CART:
       return {
         ...state,
         cartOpen: true,
-        cart: [...state.cart, action.coffee],
+        cart: [...state.cart, action.product],
       };
 
     case ADD_MULTIPLE_TO_CART:
       return {
         ...state,
-        cart: [...state.cart, ...action.coffee],
+        cart: [...state.cart, ...action.products],
       };
 
     case UPDATE_CART_QUANTITY:
@@ -58,7 +58,17 @@ export const reducer = (state, action) => {
         ...state,
         cartOpen: !state.cartOpen,
       };
-
+      case UPDATE_CATEGORY:
+        return {
+          ...state,
+          category: [...action.category],
+        };
+  
+      case UPDATE_CURRENT_CATEGORY:
+        return {
+          ...state,
+          currentCategory: action.currentCategory
+        }
     default:
       return state;
   }

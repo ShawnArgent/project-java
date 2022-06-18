@@ -4,6 +4,8 @@ const Product = require('./Product');
 const Category = require('./Category');
 const Order = require('./Order');
 
+module.exports = { User, Product, Category, Order };
+
 const fs = require('fs');
 
 const modelEntries = fs
@@ -11,5 +13,4 @@ const modelEntries = fs
   .filter((filename) => /.js$/.test(filename))
   .map((filename) => [filename.replace(/.js$/, ''), require(`./${filename}`)]);
 
-module.exports = { User, Product, Category, Order };
 module.exports = Object.fromEntries(modelEntries);

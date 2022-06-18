@@ -8,22 +8,22 @@ const userSchema = new Schema({
   firstName: {
     type: String,
     required: true,
-    trim: true,
+    trim: true
   },
   lastName: {
     type: String,
     required: true,
-    trim: true,
+    trim: true
   },
   email: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   password: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: 5
   },
   orders: [Order.schema],
   
