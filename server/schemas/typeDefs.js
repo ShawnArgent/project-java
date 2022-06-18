@@ -51,7 +51,7 @@ const typeDefs = gql`
   type Query {
     coffees(category: ID, name: String): [Coffee]
     coffee(_id: ID!): Coffee
-    user: User
+    me: User
     checkout(coffees: [ID]!): Checkout
     recipes: [Recipe]
   }
