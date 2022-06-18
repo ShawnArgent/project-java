@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-import { useLazyQuery } from "@apollo/client";
-import { QUERY_CHECKOUT } from "../../util/queries";
-import { idbPromise } from "../../util/helpers";
-import CartItem from "../CartItem";
-import { useAuth } from "../../util/auth";
-import { useStoreContext } from "../../util/GlobalState";
-import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from "../../util/actions";
-import "./cart.css";
+import React, { useEffect } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { useLazyQuery } from '@apollo/client';
+import { QUERY_CHECKOUT } from '../../util/queries';
+import { idbPromise } from '../../util/helpers';
+import CartItem from '../CartItem';
+import { useAuth } from '../../util/auth';
+import { useStoreContext } from '../../util/GlobalState';
+import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../util/actions';
 
 // stripePromise returns a promise with the stripe object as soon as the Stripe package loads
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 const Cart = () => {
   const [state, dispatch] = useStoreContext();
@@ -26,7 +25,7 @@ const Cart = () => {
 
   useEffect(() => {
     async function getCart() {
-      const cart = await idbPromise("cart", "get");
+      const cart = await idbPromise('cart', 'get');
       dispatch({ type: ADD_MULTIPLE_TO_CART, coffees: [...cart] });
     }
 
@@ -63,8 +62,8 @@ const Cart = () => {
 
   if (!state.cartOpen) {
     return (
-      <div className="cart-closed" onClick={toggleCart}>
-        <span role="img" aria-label="trash">
+      <div className='cart-closed' onClick={toggleCart}>
+        <span role='img' aria-label='trash'>
           🛒
         </span>
       </div>
@@ -72,8 +71,8 @@ const Cart = () => {
   }
 
   return (
-    <div className="cart">
-      <div className="close" onClick={toggleCart}>
+    <div className='cart'>
+      <div className='close' onClick={toggleCart}>
         [close]
       </div>
       <h2>Shopping Cart</h2>
@@ -83,19 +82,15 @@ const Cart = () => {
             <CartItem key={item._id} item={item} />
           ))}
 
-          <div className="flex-row space-between">
+          <div className='flex-row space-between'>
             <strong>Total: ${calculateTotal()}</strong>
 
-            {useAuth.loggedIn() ? (
-              <button onClick={submitCheckout}>Checkout</button>
-            ) : (
-              <span>(log in to check out)</span>
-            )}
+            {useAuth.loggedIn() ? <button onClick={submitCheckout}>Checkout</button> : <span>(log in to check out)</span>}
           </div>
         </div>
       ) : (
         <h3>
-          <span role="img" aria-label="shocked">
+          <span role='img' aria-label='shocked'>
             😱
           </span>
           You haven't added anything to your cart yet!

@@ -9,8 +9,13 @@ node_modules
 # testing
 /coverage
 
-# production
-/build
+# # production
+# /build
+src/*
+public/*
+build/static/css/*.map
+build/static/js/*.map
+build/static/mdedia/*.map
 
 # misc
 .DS_Store

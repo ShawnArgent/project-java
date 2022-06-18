@@ -285,7 +285,7 @@ db.once('open', async () => {
     
   ]);
 
-  console.log('products seeded');
+  console.log('coffees seeded');
 
   await User.deleteMany();
 

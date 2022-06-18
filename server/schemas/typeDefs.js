@@ -12,6 +12,10 @@ const typeDefs = gql`
     orders: [Order]
   }
 
+  type Category {
+    _id: ID
+    name: String
+  }
   type Coffee {
     _id: ID
     name: String
