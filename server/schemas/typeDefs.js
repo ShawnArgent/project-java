@@ -1,39 +1,37 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  "Unix time stamp in milliseconds."
-  scalar Date
+ 
 
-  type User {
-    _id: ID
-    firstName: String
-    lastName: String
-    email: String
-    orders: [Order]
-  }
+type Category {
+  _id: ID!
+  name: String
+}
+type Coffee {
+  _id: ID
+  name: String
+  roast: String
+  type: String
+  quantity: Int
+  price: Float
+  tastingProfile: String
+  image: String
+  location: String
+  locationHistory: String
+}
 
-  type Category {
-    _id: ID
-    name: String
-  }
-  type Coffee {
-    _id: ID
-    name: String
-    roast: String
-    type: String
-    quantity: Int
-    price: Float
-    tastingProfile: String
-    image: String
-    location: String
-    locationHistory: String
-  }
-
-  type Order {
-    _id: ID!
-    purchaseDate: String
-    coffees: [Coffee]
-  }
+type Order {
+  _id: ID!
+  purchaseDate: String
+  coffees: [Coffee]
+}
+type User {
+  _id: ID!
+  firstName: String
+  lastName: String
+  email: String
+  orders: [Order]
+}
 
   type Recipe {
     _id: ID!
@@ -48,14 +46,15 @@ const typeDefs = gql`
   }
 
   type Auth {
-    token: String!
-    user: User!
+    token: ID
+    user: User
   }
 
   type Query {
     "Find the logged in user."
     me: User
-    coffees: [Coffee]
+    categories: [Category]
+    coffees(category: ID, name: String):: [Coffee]
     coffee(_id: ID!): Coffee
     checkout(coffees: [ID]!): Checkout
     recipes: [Recipe]
