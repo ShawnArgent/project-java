@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 mongoose;
 mongoose
-  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/DB_JAVA', {
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost/DB_JAVA', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
