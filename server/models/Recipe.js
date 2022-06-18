@@ -6,17 +6,17 @@ const recipeSchema = new Schema({
   title: {
     type: String,
     required: true,
-    trim: true,
+    trim: true
   },
   description: {
     type: String,
     required: true,
-    trim: true,
+    trim: true
   },
   ingredients: {
     type: Array,
     required: true,
-    trim: true,
+    trim: true
   },
   image: {
     type: String,

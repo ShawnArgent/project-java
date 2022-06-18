@@ -1,18 +1,18 @@
 import { gql } from '@apollo/client';
 
 export const LOGIN = gql`
-  mutation Login($email: String!, $password: String!) {
+  mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
     }
   }
 `;
 
-export const CREATE_ORDER = gql`
-  mutation addOrder($coffees: [ID]!) {
-    addOrder(coffees: $coffees) {
+export const ADD_ORDER = gql`
+  mutation addOrder($products: [ID]!) {
+    addOrder(products: $products) {
       purchaseDate
-      coffees {
+      products {
         _id
         name
         description
@@ -26,7 +26,7 @@ export const CREATE_ORDER = gql`
   }
 `;
 
-export const CREATE_USER = gql`
+export const ADD_USER = gql`
   mutation addUser($firstName: String!, $lastName: String!, $email: String!, $password: String!) {
     addUser(firstName: $firstName, lastName: $lastName, email: $email, password: $password) {
       token

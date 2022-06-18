@@ -1,50 +1,77 @@
 const { AuthenticationError, UserInputError } = require('apollo-server-express');
-const { User, Coffee, Order, Recipe } = require('../models');
+const { User, Product, Category, Order, Recipe } = require('../models');
 const { signToken } = require('../util/auth');
-const { dateScalar } = require('./customScalars');
 const { SERVER_API_KEY } = process.env;
 
 // remove sk test code and make secret
 const stripe = require('stripe')(SERVER_API_KEY);
 
 const resolvers = {
-  Date: dateScalar,
   Query: {
-    me: async (parent, args, ctx) => {
-      // if ctx.user is undefined, then no token or an invalid token was
-      // provided by the client.
-      if (!ctx.user) {
-        throw new AuthenticationError('Must be logged in.');
+    category: async () => {
+      return await Category.find();
+    },
+    products: async (parent, { category, name }) => {
+      const params = {};
+
+      if (category) {
+        params.category = category;
       }
-      return User.findOne({ email: ctx.user.email });
-    },
 
-    coffees: async (parent, { category, name }) => {
-      return await Coffee.find();
-    },
+      if (name) {
+        params.name = {
+          $regex: name
+        };
+      }
 
-    coffee: async (parent, { _id }) => {
-      return await Coffee.findById(_id);
+      return await Product.find(params).populate('category');
     },
+    product: async (parent, { _id }) => {
+      return await Product.findById(_id).populate('category');
+    },
+    user: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id).populate({
+          path: 'orders.products',
+          populate: 'category',
+        });
 
+        user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
+
+        return user;
+      }
+
+      throw new AuthenticationError('Not logged in');
+    },
+    order: async (parent, { _id }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id).populate({
+          path: 'orders.products',
+          populate: 'category'
+        });
+
+        return user.orders.id(_id);
+      }
+
+      throw new AuthenticationError('Not logged in');
+    },
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
-      const order = new Order({ coffees: args.coffees });
+      const order = new Order({ products: args.products });
       const line_items = [];
 
-      const { coffees } = await order.populate('coffees');
+      const { products } = await order.populate('products');
 
-      for (let i = 0; i < coffees.length; i++) {
-        const coffee = await stripe.coffees.create({
-          name: coffees[i].name,
-          roast: coffees[i].roast,
-          type: coffees[i].type,
-          images: [`${url}/images/${coffees[i].image}`],
+      for (let i = 0; i < products.length; i++) {
+        const product = await stripe.products.create({
+          name: products[i].name,
+          description: products[i].description,
+          images: [`${url}/images/${products[i].image}`],
         });
 
         const price = await stripe.prices.create({
-          coffee: coffee.id,
-          unit_amount: coffees[i].price * 100,
+          product: product.id,
+          unit_amount: products[i].price * 100,
           currency: 'usd',
         });
 
@@ -64,51 +91,53 @@ const resolvers = {
 
       return { session: session.id };
     },
-
-    recipes: async () => {
-      return await Recipe.find();
-    },
   },
   Mutation: {
-    createUser: async (parent, args) => {
-      try {
-        const user = await User.create({ ...args });
-        const token = await signToken(user);
-        return { user, token };
-      } catch (error) {
-        if (error.name === 'MongoError' && error.code === 11000) {
-          const [[key, value]] = Object.entries(error.keyValue);
-          throw new UserInputError(`${key} "${value}" already exists.`);
-        }
-        throw error;
-      }
-    },
+    addUser: async (parent, args) => {
+      const user = await User.create(args);
+      const token = signToken(user);
 
-    newOrder: async (parent, { coffees }, context) => {
+      return { token, user };
+    },
+    addOrder: async (parent, { products }, context) => {
+      console.log(context);
       if (context.user) {
-        const order = await Order.create({ coffees });
-        await User.findByIdAndUpdate(context.user._id, {
-          $push: { orders: order },
-        });
+        const order = new Order({ products });
+
+        await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
+
         return order;
       }
 
       throw new AuthenticationError('Not logged in');
     },
+    updateUser: async (parent, args, context) => {
+      if (context.user) {
+        return await User.findByIdAndUpdate(context.user._id, args, { new: true });
+      }
 
-    login: async (parent, args) => {
-      const { email, password } = args;
+      throw new AuthenticationError('Not logged in');
+    },
+    updateProduct: async (parent, { _id, quantity }) => {
+      const decrement = Math.abs(quantity) * -1;
+
+      return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
+    },
+    login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
+
       if (!user) {
-        throw new AuthenticationError('Invalid username or password');
+        throw new AuthenticationError('Incorrect credentials');
       }
-      const authentic = await user.isCorrectPassword(password);
-      if (!authentic) {
-        throw new AuthenticationError('Invalid username or password');
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect credentials');
       }
-      const token = await signToken(user);
-      user.lastLogin = Date.now();
-      await user.save();
+
+      const token = signToken(user);
+
       return { token, user };
     },
   },

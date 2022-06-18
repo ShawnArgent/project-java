@@ -1,8 +1,8 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { useQuery } from "@apollo/client";
-import { QUERY_USER } from "../util/queries";
+import { useQuery } from '@apollo/client';
+import { QUERY_USER } from '../util/queries';
 
 function CartHistory() {
   const { data } = useQuery(QUERY_USER);
@@ -14,8 +14,8 @@ function CartHistory() {
 
   return (
     <>
-      <div className="container my-1">
-        <NavLink to="/"> Back to Coffee!</NavLink>
+      <div className='container my-1'>
+        <Link to='/'> Back to Coffee!</Link>
 
         {user ? (
           <>
@@ -23,17 +23,15 @@ function CartHistory() {
               Order History for {user.firstName} {user.lastName}
             </h2>
             {user.order.map((order) => (
-              <div key={order._id} className="my-2">
-                <h3>
-                  {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
-                </h3>
-                <div className="flex-row">
-                  {order.coffee.map(({ _id, image, name, price }, index) => (
-                    <div key={index} className="card px-1 py-1">
-                      <NavLink to={`/coffee/${_id}`}>
+              <div key={order._id} className='my-2'>
+                <h3>{new Date(parseInt(order.purchaseDate)).toLocaleDateString()}</h3>
+                <div className='flex-row'>
+                  {order.product.map(({ _id, image, name, price }, index) => (
+                    <div key={index} className='card px-1 py-1'>
+                      <Link to={`/product/${_id}`}>
                         <img alt={name} src={`/images/${image}`} />
                         <p>{name}</p>
-                      </NavLink>
+                      </Link>
                       <div>
                         <span>${price}</span>
                       </div>

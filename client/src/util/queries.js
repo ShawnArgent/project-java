@@ -10,12 +10,11 @@ export const ME = gql`
     }
   }
 `;
-export const QUERY_COFFEE = gql`
+export const QUERY_PRODUCT = gql`
   query getCoffees {
-    coffees {
+    products {
       _id
       name
-      roast
       type
       quantity
       price
@@ -23,30 +22,44 @@ export const QUERY_COFFEE = gql`
       image
       location
       locationHistory
+      category {
+        _id
+      }
     }
   }
 `;
 
 export const QUERY_CHECKOUT = gql`
-  query getCheckout($coffee: [ID]!) {
-    checkout(coffees: $coffee) {
+  query getCheckout($products: [ID]!) {
+    checkout(productss: $products) {
       session
     }
   }
 `;
 
-export const QUERY_ALL_COFFEE = gql`
+export const QUERY_ALL_PRODUCT = gql`
   {
-    coffee {
+    products {
       _id
       name
       description
       price
       quantity
+      category {
+        name
+      }
     }
   }
 `;
 
+export const QUERY_CATEGORY = gql`
+  {
+    category {
+      _id
+      name
+    }
+  }
+`;
 export const QUERY_USER = gql`
   {
     user {
@@ -55,7 +68,7 @@ export const QUERY_USER = gql`
       orders {
         _id
         purchaseDate
-        coffees {
+        product {
           _id
           name
           description
