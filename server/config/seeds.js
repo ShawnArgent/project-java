@@ -215,7 +215,7 @@ db.once('open', async () => {
       quantity: 450,
       price: 10.99,
       tastingProfile: 'Earthy, Bell Pepper, Rich Chocolate',
-      image: 'indonesia-beans.png',
+      image: 'Sumatra.jpg',
       location: 'Indonesia - Sumatra',
       locationHistory:
       'Indonesian geography is ideal for coffee growing. It’s located near the equator and has numerous mountainous regions across the islands which creates several coffee friendly micro-climates for growth. Now the fourth largest coffee producer in the world, Indonesia was the first place outside of Arabia and Ethiopia where coffee was widely cultivated​.',
@@ -227,7 +227,7 @@ db.once('open', async () => {
       quantity: 700,
       price: 10.99,
       tastingProfile: 'Raspberry, Blueberry, Sweet Chocolate',
-      image: 'ethiopia-beans.png',
+      image: 'ethiopia-beans.jpg',
       location: 'Ethiopia - Yirgacheffe',
       locationHistory:
         'Legend has it that when Kaldi, a goat farmer from the 9th century, found his goats acting suspiciously jittery, he traced their liveliness to their consumption of mystery berries, also known as coffee cherries. And so the progression to modern day coffee slowly began...',
@@ -239,7 +239,7 @@ db.once('open', async () => {
       quantity: 500,
       price: 12.99,
       tastingProfile: 'Milk Chocolate, Sweet Cream',
-      image: 'costa-rica-beans.png',
+      image: 'costa_rica.jpg',
       location: 'Palmares',
       locationHistory:
         "Arabica was the first coffee planted in Costa Rica toward the end of the 1700s. Although widespread cultivation in the country was slow, Costa Rica eventually became the first Central American country to have a coffee industry. By 1829, Costa Rican coffee was the desire of many foreign buyers, quickly surpassing Costa Rica's main exports (cacao, tobacco, sugar).",
@@ -252,7 +252,7 @@ db.once('open', async () => {
       quantity: 600,
       price: 13.99,
       tastingProfile: 'Nougat, Floral-like Black Tea, Green Apple',
-      image: 'papa-beans.png',
+      image: 'oceania.jpg',
       location: 'Papa New Guinea - Western Highland',
       locationHistory:
         'Coffee was introduced to Papua New Guinea when it was brought over from Jamaica’s Blue Mountain in the 1920s.Coffee from this region is often described as a lighter, more acidic coffee with subtle hints of fruit, often compared to an apple. It is grown in two regions: the Western Highlands and the Eastern Highlands.',
@@ -264,7 +264,7 @@ db.once('open', async () => {
       quantity: 700,
       price: 11.99,
       tastingProfile: 'Chocolate, Coconut, Vanilla',
-      image: 'brazil-beans.png',
+      image: 'brazil.jpg',
       location: 'Brazil - Mantiqueria de Minas',
       locationHistory:
         'Coffee was introduced to Brazil by French settlers in the early 18th century. Starting in the northern region of Brazil, coffee ​plantations began to expand down the coast, quickly surpassing sugar-cane, the predominant industry at that time. By 1840, Brazil was the largest coffee producer in the world.',
@@ -277,7 +277,7 @@ db.once('open', async () => {
       quantity: 400,
       price: 14.99,
       tastingProfile: 'Plum & Grape, Graham Cracker, Toasted Marshmallow',
-      image: 'colombia-beans.png',
+      image: 'colombia.jpg',
       location: 'Columbia - Andean Region',
       locationHistory:
         "With over 500,000 farmers spanning across 2.2 million acres, coffee production in Colombia is deeply woven into culture. Unlike other areas that mass-produce, you'll find most of the coffee in Colombia is shade-grown and hand-picked, making it some of the highest quality coffee in the world.",
