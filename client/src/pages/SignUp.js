@@ -50,7 +50,7 @@ export default function SignUp() {
               type="text"
               placeholder="Enter firstName"
               name="firstName"
-              value={formState.firstname.value}
+              value={formState.firstName.value}
               onChange={handleInputChange}
             />
           </div>
