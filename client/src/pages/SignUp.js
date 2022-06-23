@@ -3,8 +3,8 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../util/auth';
 
 const initialFormState = {
-  firstname: '',
-  lastname: '',
+  firstName: '',
+  lastName: '',
   email: '',
   password: '',
 };
@@ -38,7 +38,7 @@ export default function SignUp() {
       <hr />
       <form class="box" onSubmit={handleSubmit}>
         <div class="field">
-          <label class="label" htmlFor="first name">
+          <label class="label" htmlFor="firstName">
             First Name
           </label>
           <div class="control">
@@ -46,10 +46,10 @@ export default function SignUp() {
               autoFocus
               disabled={loading}
               class="input"
-              id="first name"
+              id="firstName"
               type="text"
-              placeholder="Enter first name"
-              name="first name"
+              placeholder="Enter firstName"
+              name="firstName"
               value={formState.firstname.value}
               onChange={handleInputChange}
             />
@@ -57,11 +57,11 @@ export default function SignUp() {
         </div>
 
         <div class="field">
-          <label class="label" htmlFor="last name">
+          <label class="label" htmlFor="lastName">
             Last Name
           </label>
           <div class="control">
-            <input disabled={loading} class="input" id="last name" type="last name" name="last name" placeholder="Enter last name" value={formState.password.value} onChange={handleInputChange} />
+            <input disabled={loading} class="input" id="lastName" type="lastName" name="lastName" placeholder="Enter lastName" value={formState.password.value} onChange={handleInputChange} />
           </div>
         </div>
 
