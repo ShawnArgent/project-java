@@ -1,94 +1,92 @@
-import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { CREATE_USER } from '../util/mutations';
 import { useAuth } from '../util/auth';
 
-const initialFormState = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-};
 
-export default function SignUp() {
-  const { isLoggedIn, signup, loading, error } = useAuth();
-  const [formState, setFormState] = useState(initialFormState);
+function SignUp(props) {
+  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [addUser] = useMutation(CREATE_USER);
 
-  useEffect(() => {
-    if (error) {
-      alert(error);
-    }
-  }, [error]);
-
-  const handleInputChange = (evt) => {
-    const { name, value } = evt.target;
-    setFormState((prevState) => ({ ...prevState, [name]: value }));
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    const mutationResponse = await addUser({
+      variables: {
+        email: formState.email,
+        password: formState.password,
+        firstName: formState.firstName,
+        lastName: formState.lastName,
+      },
+    });
+    const token = mutationResponse.data.addUser.token;
+    useAuth.login(token);
   };
 
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
-    signup(formState);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
 
-  if (isLoggedIn) {
-    // navigate to the home page
-    return <Navigate to="/" replace />;
-  }
+ 
   return (
     <div>
       <hr />
-      <form class="box" onSubmit={handleSubmit}>
-        <div class="field">
-          <label class="label" htmlFor="firstName">
+      <form className="box" onSubmit={handleFormSubmit}>
+        <div className="field">
+          <label className="label" htmlFor="firstName">
             First Name
           </label>
-          <div class="control">
+          <div className="control">
             <input
-              autoFocus
-              disabled={loading}
-              class="input"
+            className='input'
               id="firstName"
-              type="text"
-              placeholder="Enter firstName"
+              type="firstName"
+              placeholder="Enter First Name"
               name="firstName"
-              value={formState.firstName.value}
-              onChange={handleInputChange}
+              onChange={handleChange}
             />
           </div>
         </div>
 
-        <div class="field">
-          <label class="label" htmlFor="lastName">
+        <div className="field">
+          <label className="label" htmlFor="lastName">
             Last Name
           </label>
-          <div class="control">
-            <input disabled={loading} class="input" id="lastName" type="lastName" name="lastName" placeholder="Enter lastName" value={formState.password.value} onChange={handleInputChange} />
+          <div className="control">
+            <input className="input" id="lastName" type="lastName" name="lastName" placeholder="Enter Last Name" value={formState.password.value} onChange={handleChange} />
           </div>
         </div>
 
-        <div class="field">
-          <label class="label" htmlFor="new-email">
+        <div className="field">
+          <label className="label" htmlFor="new-email">
             Email
           </label>
-          <div class="control">
-            <input disabled={loading} class="input" id="new-email" type="email" name="email" placeholder="Enter email" value={formState.password.value} onChange={handleInputChange} />
+          <div className="control">
+            <input className="input" id="new-email" type="email" name="email" placeholder="Enter email"  onChange={handleChange} />
           </div>
         </div>
 
-        <div class="field">
-          <label class="label" htmlFor="new-password">
+        <div className="field">
+          <label className="label" htmlFor="new-password">
             Password
           </label>
-          <div class="control">
-            <input disabled={loading} class="input" id="new-password" type="password" name="password" placeholder="Enter password" value={formState.password.value} onChange={handleInputChange} />
+          <div className="control">
+            <input className="input" id="new-password" 
+            type="password" name="password" 
+            placeholder="Enter password" 
+             onChange={handleChange} />
           </div>
         </div>
 
         <div>
-          <button class="button is-info" disabled={loading} type="submit">
-            {loading ? 'Loading...' : 'Submit'}
+          <button className="button is-info" type="submit">
+            Submit
           </button>
         </div>
-        <div class="content">
+        <div className="content">
           <p>
             Already have an account? <a href=" /login">Login Here</a>
           </p>
@@ -97,3 +95,4 @@ export default function SignUp() {
     </div>
   );
 }
+export default SignUp;
