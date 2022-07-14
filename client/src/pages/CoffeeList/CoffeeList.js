@@ -44,11 +44,11 @@ function CoffeeList() {
 
   return (
     <div className='box-has-background-color-black has-text-centered'>
-    <h1 className='title has-text-white'>Our Coffees</h1>
+    <h1 className='title'>Our Coffees</h1>
     {state.coffee.length ? (
-     <div class="columns is-variable is-1-mobile is-0-tablet is-3-desktop is-8-widescreen is-2-fullhd">
-
-        {filterCoffee().map((coffee) => (
+     <div className='column'>
+     <div className="columns is-variable is-1-mobile is-0-tablet is-3-desktop is-8-widescreen is-2-fullhd">
+      {filterCoffee().map((coffee) => (
           <CoffeeItem
             key={coffee._id}
             _id={coffee._id}
@@ -61,8 +61,10 @@ function CoffeeList() {
             history={coffee.history}
             />
           ))}
-        </div>
-      ) : (
+          </div>
+          </div>
+     
+        ) : (
         <h3>Out of Stock!</h3>
       )}
       {loading ? <img src={spinner} alt='loading' /> : null}

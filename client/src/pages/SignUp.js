@@ -82,7 +82,7 @@ function SignUp(props) {
         </div>
 
         <div>
-          <button className="button is-info" type="submit">
+          <button className="button is-normal is-info" type="submit">
             Submit
           </button>
         </div>

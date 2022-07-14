@@ -48,7 +48,7 @@ function App() {
               <Route path='/carthistory' element={<CartHistory />} />
               <Route path='/recipes' element={<Recipe />} />
               <Route path='/shop' element={<CoffeeList />} />
-              <Route path='/coffee/:id' element={<Detail />} />
+              <Route path='/coffees/:id' element={<Detail />} />
               <Route path='*' element={<NoMatch />} />
             </Routes>
           </StoreProvider>

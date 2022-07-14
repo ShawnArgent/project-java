@@ -33,7 +33,7 @@ const CartItem = ({ item }) => {
   };
 
   return (
-    <div className="flex-row">
+    <div className='box-has-background-color-black has-text-centered'>
       <div>
         <img src={`/images/${item.image}`} alt="" />
       </div>

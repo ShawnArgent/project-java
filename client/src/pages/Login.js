@@ -71,7 +71,7 @@ export default function Login() {
           </div>
           <div>
             <button
-              className="button is-info "
+              className="button is-normal is-info "
               disabled={loading}
               type="submit"
             >

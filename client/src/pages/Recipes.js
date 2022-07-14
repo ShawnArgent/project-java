@@ -9,29 +9,26 @@ function RecipeList() {
 
   return (
     <main>
+      <h1 className='title'>Recipes</h1>
       {loading ? (
         <div>Loading...</div>
       ) : (
         recipes.map((recipe) => (
-          <div className='columns is-mobile is-multiline is-centered'>
-            <div className='card' key={recipe.title}>
+     <div className='columns is-centered'>
+          <div className='column'>
+          <div className='card'>
+          
               <div className='card-image'>
                 <figure className='image is-5by5'>
                   <img alt={recipe.title} src={recipe.image} />
                 </figure>
-              </div>
-              <div className='card-content'>
-                <div className='media'>
-                  <div className='media-content'>
                     <p className='title is-4'>{recipe.title}</p>
                     <p className='subtitle is-6'>{recipe.ingredients.join(', ')}</p>
-                  </div>
-                </div>
-
                 <div className='content'>{recipe.description}</div>
               </div>
             </div>
-          </div>
+            </div>
+            </div>
         ))
       )}
     </main>

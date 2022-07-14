@@ -1,26 +1,30 @@
+main {
+  margin: 0 auto;
+  max-width: 90%;
+  padding: 50px 30px;
+}
+
 * {
   box-sizing: border-box;
 }
 
+html,
 body {
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: 'Karla', sans-serif;
-  font-weight: 400;
-  line-height: 1.5;
-  font-size: 16px;
-  color: var(--light);
+  scroll-behavior: smooth;
 }
 
-
+body {
+  background-image: url(./assets/coffee1.jpg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
-button {
-  font-size: 1rem;
+.button {
+  font-size: 3rem;
   text-decoration: none;
   padding: 0.25rem 1rem;
   border-radius: .5rem;
@@ -28,14 +32,15 @@ button {
   outline: none;
   cursor: pointer;
   margin: 0 1px;
-  background-color: var(--secondary);
+  left: 45%;
+  color: #595857;
+  background-color: #D9D9D9;
 }
 
 /* Nav */
 .navbar-item img.logo  {
   max-height: 100%;
 }
-
 
 .cart-icon{
   font-size: 25px;
@@ -72,6 +77,7 @@ button {
 
 .nav-link:hover {
   color: red;
+  text-decoration: none;
 }
 
 .nav-link:active {
@@ -98,12 +104,22 @@ h6 {
   line-height: 1.25;
 }
 
+.title {
+  font-size: 2rem;
+  color: #F2F2F2;
+  text-shadow: 1px 1px #0D0D0D;
+  text-align: center;
+}
 h1 {
   font-size: 2.25rem;
+  text-shadow: 1px 1px #A6A5A4;
 }
 
 h2 {
   font-size: 2rem;
+  color: #0D0D0D;
+  text-shadow: 1px 1px #A6A5A4;
+  text-align: center;
 }
 
 h3 {
@@ -134,27 +150,7 @@ a {
 }
 
 a:hover {
-  text-decoration: underline;
-}
-
-header {
-  background: var(--primary);
-}
-
-header a {
-  color: var(--light);
-}
-
-button {
-  font-size: 1rem;
   text-decoration: none;
-  padding: 0.25rem 1rem;
-  border-radius: .5rem;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  margin: 0 1px;
-  background-color: var(--secondary);
 }
 
 button:hover {
@@ -166,8 +162,6 @@ button[disabled] {
   opacity: .8;
 }
 
-
-
 span[role="img"] {
   cursor: default;
 }
@@ -176,8 +170,6 @@ form {
   width: 50%;
   margin-right: 25%;
   margin-left: 25%;
-
-
 }
 
 input {
@@ -194,6 +186,9 @@ input:focus {
   box-shadow: 0 0 .25rem rgba(0, 0, 0, .5);
 }
 
+.columns {
+  column-gap: 1rem;
+}
 .container {
   width: 85%;
   max-width: 1200px;
@@ -218,6 +213,7 @@ input:focus {
 .card {
   width: 25%;
   text-align: center;
+  background-color: #D9D9D9;
 }
 
 .error-text {
